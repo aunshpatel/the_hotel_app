@@ -1,16 +1,8 @@
-# the_hotel_app
+# The Hotel App
 
-An application to manage bookings.
+This is an application to manage bookings.
 
-## Getting Started
+## Steps To Connect Database
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Create a firebase project.
+- To connect a firebase app with flutter app, select the flutter option and follow the steps.
