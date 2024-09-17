@@ -25,17 +25,9 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Scaffold(
         drawerEnableOpenDragGesture: true,
         appBar: AppBar(
-          actions: <Widget>[
-
-          ],
           centerTitle: true,
-          title: const Wrap(
-            children: [
-              Text('Login ', style:TextStyle(color: kLightTitleColor),),
-              Text('Screen', style:TextStyle(color: kDarkTitleColor),),
-            ],
-          ),
-          backgroundColor: kBackgroundColor,
+          title: const Text('Login Screen', style:TextStyle(color: kThemeBlackColor),),
+          backgroundColor: kThemeBlueColor,
         ),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(24, 40, 24, 0),
