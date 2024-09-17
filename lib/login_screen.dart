@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       Navigator.pushNamed(context, '/registration_screen');
                     },
-                    child: const Text('New User? Register Here',  style: kDarkListingInputDecorationStyle),
+                    child: const Text('New User? Register Here',  style: kExistingUserOrNewUser),
                   )
                 ],
               )
