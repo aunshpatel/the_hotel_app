@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "300810315501",
+    "project_id": "the-hotel-app-b10be",
+    "storage_bucket": "the-hotel-app-b10be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300810315501:android:c02b221e9cb0fbfb630ee4",
+        "android_client_info": {
+          "package_name": "com.aunsh.the_hotel_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuagtdz75UEum_Bwx_N_l3Ogh2eXnNxfI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
