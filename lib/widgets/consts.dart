@@ -8,7 +8,7 @@ const kLightTitleColor = Color(0XFF697489);
 
 const kDarkTitleColor = Color(0XFF3A4355);
 
-const kBackgroundColor = Color(0XFFE3E6EF);
+const kBackgroundColor = Color(0XFF77D4FC);
 
 const kBorder = OutlineInputBorder(
   borderRadius: BorderRadius.all(Radius.circular(32.0)),
