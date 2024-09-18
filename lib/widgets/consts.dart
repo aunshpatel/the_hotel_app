@@ -14,6 +14,8 @@ const kBackgroundColor = Color(0XFF77D4FC);
 
 bool automaticLogin = false, isRememberMe = false, isLoggedIn = false;
 
+String currentUser = '', isGuestOrStaff = '';
+
 // late SharedPreferences prefs;
 
 final auth = FirebaseAuth.instance;

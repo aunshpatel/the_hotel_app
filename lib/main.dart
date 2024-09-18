@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:the_hotel_app/guest_dashboard.dart';
 import 'package:the_hotel_app/registration_screen.dart';
+import 'package:the_hotel_app/staff_dashboard.dart';
 import 'package:the_hotel_app/widgets/consts.dart';
 import 'firebase_options.dart';
 import 'login_screen.dart';
@@ -36,6 +38,8 @@ class _MyAppState extends State<MyApp> {
       automaticLogin = prefs.getBool("remember_me")! || false;
       isRememberMe = prefs.getBool('autoLogin')! || false;
       isLoggedIn = prefs.getBool('isLoggedIn')! || false;
+      currentUser = prefs.getString('currentUser')!;
+      isGuestOrStaff = prefs.getString('isGuestOrStaff')!;
     });
     if(isRememberMe == true && isLoggedIn == true) {
       String emailID = prefs.getString("email")!;
@@ -43,27 +47,20 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         showSpinner = true;
       });
-      try{
-        final user = await auth.signInWithEmailAndPassword(email: emailID, password: password);
-        if(user != null){
-          Navigator.pushNamed(context, '/task_screen');
-
-          setState(() {
-            showSpinner = false;
-          });
-        }
-        else{
-          commonAlertBox(context, 'WARNING!','Incorrect email or password. Please enter your email and password again.');
-          setState(() {
-            showSpinner = false;
-          });
-        }
-      } catch(e) {
-        setState(() {
-          showSpinner = false;
-        });
-        return commonAlertBox(context, 'WARNING!', e.toString());
-      }
+      // try{
+      //   final user = await auth.signInWithEmailAndPassword(email: emailID, password: password);
+      //   if(isGuestOrStaff != 'staff'){
+      //     Navigator.pushNamed(context, '/staff_dashboard');
+      //   }
+      //   else{
+      //     Navigator.pushNamed(context, '/guest_dashboard');
+      //   }
+      // } catch(e) {
+      //   setState(() {
+      //     showSpinner = false;
+      //   });
+      //   return commonAlertBox(context, 'WARNING!', e.toString());
+      // }
     }
   }
   
@@ -88,10 +85,12 @@ class _MyAppState extends State<MyApp> {
               colorScheme: ColorScheme.fromSeed(seedColor: kThemeBlueColor),
               useMaterial3: true,
             ),
-            initialRoute: '/login_screen',
+            initialRoute: automaticLogin == false ? '/login_screen' : (isGuestOrStaff == 'staff' ? '/staff_dashboard' : '/guest_dashboard'),
             routes: {
               '/login_screen':(context) => const LoginScreen(),
               '/registration_screen':(context) => const RegistrationScreen(),
+              '/staff_dashboard':(context) => const StaffDashboard(),
+              '/guest_dashboard':(context) => const GuestDashboard(),
             },
           );
         }

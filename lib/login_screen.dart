@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:the_hotel_app/widgets/consts.dart';
 import 'package:the_hotel_app/widgets/rounded_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'data_file.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -54,20 +57,36 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  loginFunction() async {
+  _loginFunction() async {
     try{
       final user = await auth.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text);
       if(user != null){
         // Navigator.pushNamed(context, '/task_screen');
         commonAlertBox(context, 'WARNING!', 'LOGIN SUCCESSFUL');
+        currentUser = email;
+
+
+        final usrData = await getUserData();
+        print("usrData:$usrData");
+        if(usrData[0]['isGuestOrStaff'] == 'staff') {
+          Navigator.pushNamed(context, '/staff_dashboard');
+        } else {
+          Navigator.pushNamed(context, '/guest_dashboard');
+        }
+
         setState(() {
           isLoggedIn = true;
+          currentUser = email;
+          isGuestOrStaff = usrData[0]['isGuestOrStaff'];
         });
+
         SharedPreferences.getInstance().then((prefs) {
           prefs.setBool('isLoggedIn', true);
           if(isRememberMe == true && isLoggedIn == true) {
+            prefs.setString('currentUser', currentUser);
             prefs.setString('emailID', email);
             prefs.setString('password', pwd);
+            prefs.setString('isGuestOrStaff', usrData[0]['isGuestOrStaff']);
           }
         },);
       }
@@ -207,7 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
               RoundedButton(
                 colour:kThemeBlueColor,
                 title:'Login',
-                onPress: loginFunction,
+                onPress: _loginFunction,
               ),
               const SizedBox(
                 height: 10.0,
