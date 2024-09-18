@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_hotel_app/widgets/side_drawer.dart';
 
 class GuestDashboard extends StatefulWidget {
   const GuestDashboard({super.key});
@@ -10,7 +11,16 @@ class GuestDashboard extends StatefulWidget {
 class _GuestDashboardState extends State<GuestDashboard> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      drawer: SideDrawer(),
+      appBar: AppBar(
+        title: Text('Guest Dashboard'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Text('Welcome to dashboard'),
+      ),
+    );
   }
 }
 
