@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
             return MaterialApp(
               title: 'Flutter Demo',
               theme: ThemeData(
-                colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
+                colorScheme: ColorScheme.fromSeed(seedColor: kThemeBlueColor),
                 useMaterial3: true,
               ),
               initialRoute: '/login_screen',
