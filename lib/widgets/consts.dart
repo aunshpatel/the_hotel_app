@@ -10,6 +10,12 @@ const kDarkTitleColor = Color(0XFF3A4355);
 
 const kBackgroundColor = Color(0XFF77D4FC);
 
+const kListingInputDecorationStyle = TextStyle(
+  color: kThemeBlueColor,
+  fontSize: 17,
+  fontWeight:FontWeight.w500
+);
+
 const kBorder = OutlineInputBorder(
   borderRadius: BorderRadius.all(Radius.circular(32.0)),
 );
@@ -30,9 +36,21 @@ const kLightSemiBoldTextStyle = TextStyle(
     fontWeight:FontWeight.w500
 );
 
+const kBlackBoldText = TextStyle(
+    color: kThemeBlackColor,
+    fontSize: 16,
+    fontWeight:FontWeight.bold
+);
+
 const kDarkListingInputDecorationStyle = TextStyle(
     color: kDarkTitleColor,
-    fontSize: 17,
+    fontSize: 16,
+    fontWeight:FontWeight.w500
+);
+
+const kExistingUserOrNewUser = TextStyle(
+    color: kDarkTitleColor,
+    fontSize: 18,
     fontWeight:FontWeight.w500
 );
 
