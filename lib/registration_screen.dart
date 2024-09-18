@@ -103,38 +103,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     }
   }
 
-  guestRegistration() async{
+  userRegistration() async{
     try {
-      bool emailExists = await isEmailAlreadyRegistered(email, 'guest_profile');
+      bool emailExists = await isEmailAlreadyRegistered(email, 'registered_user');
       if (emailExists) {
         commonAlertBox(context, 'WARNING!', 'This email is already registered. Please login with that email id.');
       }
       final user = await _auth.createUserWithEmailAndPassword(email: email, password: pwd);
       user.user?.updateDisplayName(fullname);
-      _registrationScreenFirestore.collection('guest_profile').add({'fullname':fullname, 'email':email, 'birthday':birthday, 'isGuestOrStaff':'guest'});
-
-      commonAlertBoxWithNavigation(context, 'SUCCESS!', 'User registered successfully! You will be navigated to login screen.', '/login_screen');
-      print('User registered successfully');
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'email-already-in-use') {
-        commonAlertBox(context, 'WARNING!', 'This email is already registered. Please login with that email id.');
+      if(isGuestOrStaff == 1) {
+        _registrationScreenFirestore.collection('registered_user').add({'fullname':fullname, 'email':email, 'birthday':birthday, 'joiningDate':birthday, 'isGuestOrStaff': isGuestOrStaff == 1 ? 'guest' : 'staff'});
       } else {
-        commonAlertBox(context, 'WARNING!', '${e.message}');
+        _registrationScreenFirestore.collection('registered_user').add({'fullname':fullname, 'email':email, 'birthday':birthday, 'joiningDate':joiningDate, 'isGuestOrStaff': isGuestOrStaff == 1 ? 'guest' : 'staff'});
       }
-    } catch (e) {
-      commonAlertBox(context, 'WARNING!', '$e');
-    }
-  }
-
-  staffRegistration() async{
-    try {
-      bool emailExists = await isEmailAlreadyRegistered(email, 'staff_profile');
-      if (emailExists) {
-        commonAlertBox(context, 'WARNING!', 'This email is already registered. Please login with that email id.');
-      }
-      final user = await _auth.createUserWithEmailAndPassword(email: email, password: pwd);
-      user.user?.updateDisplayName(fullname);
-      _registrationScreenFirestore.collection('staff_profile').add({'fullname':fullname, 'email':email, 'birthday':birthday, 'joiningDate':birthday, 'isGuestOrStaff':'guest'});
 
       commonAlertBoxWithNavigation(context, 'SUCCESS!', 'User registered successfully! You will be navigated to login screen.', '/login_screen');
       print('User registered successfully');
@@ -315,11 +296,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     title:'Register',
                     onPress: (email != '' && fullname != '' && confirmPwd != '' && pwd != '') ? () {
                       if(confirmPwd == pwd) {
-                        if(isGuestOrStaff == 1) {
-                          guestRegistration();
-                        } else {
-                          staffRegistration();
-                        }
+                        userRegistration();
                       } else {
                         commonAlertBox(context, 'WARNING!', 'Please check your password fields, the do not match.');
                       }
