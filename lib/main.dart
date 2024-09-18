@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_hotel_app/registration_screen.dart';
 import 'package:the_hotel_app/widgets/consts.dart';
 import 'firebase_options.dart';
@@ -21,43 +22,94 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late AnimationController animationController;
+  bool showSpinner = false;
+
+  @override
+  void initState() {
+    super.initState();
+    loginFunctionality();
+  }
+
+  loginFunctionality() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      automaticLogin = prefs.getBool("remember_me")! || false;
+      isRememberMe = prefs.getBool('autoLogin')! || false;
+      isLoggedIn = prefs.getBool('isLoggedIn')! || false;
+    });
+    if(isRememberMe == true && isLoggedIn == true) {
+      String emailID = prefs.getString("email")!;
+      String password = prefs.getString("password")!;
+      setState(() {
+        showSpinner = true;
+      });
+      try{
+        final user = await auth.signInWithEmailAndPassword(email: emailID, password: password);
+        if(user != null){
+          Navigator.pushNamed(context, '/task_screen');
+
+          setState(() {
+            showSpinner = false;
+          });
+        }
+        else{
+          commonAlertBox(context, 'WARNING!','Incorrect email or password. Please enter your email and password again.');
+          setState(() {
+            showSpinner = false;
+          });
+        }
+      } catch(e) {
+        setState(() {
+          showSpinner = false;
+        });
+        return commonAlertBox(context, 'WARNING!', e.toString());
+      }
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Firebase.initializeApp(),
-        builder: (context, snapshot) {
-          if(snapshot.hasError) {
-            return somethingWentWrong(context);
-          }
-          if(snapshot.connectionState == ConnectionState.done) {
-            return MaterialApp(
-              title: 'Flutter Demo',
-              theme: ThemeData(
-                colorScheme: ColorScheme.fromSeed(seedColor: kThemeBlueColor),
-                useMaterial3: true,
-              ),
-              initialRoute: '/login_screen',
-              routes: {
-                '/login_screen':(context) => const LoginScreen(),
-                '/registration_screen':(context) => const RegistrationScreen(),
-              },
-            );
-          }
-          return Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.height,
-            color: Colors.white,
-            child: Center(
-              child: CircularProgressIndicator(
-                backgroundColor: kThemeBlueColor,
-                strokeWidth: 4.0,
-                color: Colors.white,
-                valueColor: animationController.drive(ColorTween(begin: Colors.blueAccent, end: kThemeBlueColor)),
-                //backgroundColor: Colors.white,
-              ),
+      future: Firebase.initializeApp(),
+      builder: (context, snapshot) {
+        if(snapshot.hasError) {
+          return somethingWentWrong(context);
+        }
+        if(snapshot.connectionState == ConnectionState.done) {
+          return showSpinner == true ? const Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(kLightTitleColor),
+              backgroundColor: Colors.transparent,
+              strokeWidth: 5,
             ),
+          ) : MaterialApp(
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: kThemeBlueColor),
+              useMaterial3: true,
+            ),
+            initialRoute: '/login_screen',
+            routes: {
+              '/login_screen':(context) => const LoginScreen(),
+              '/registration_screen':(context) => const RegistrationScreen(),
+            },
           );
         }
+        return Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.height,
+          color: Colors.white,
+          child: Center(
+            child: CircularProgressIndicator(
+              backgroundColor: kThemeBlueColor,
+              strokeWidth: 4.0,
+              color: Colors.white,
+              valueColor: animationController.drive(ColorTween(begin: Colors.blueAccent, end: kThemeBlueColor)),
+              //backgroundColor: Colors.white,
+            ),
+          ),
+        );
+      }
     );
   }
 }

@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const kThemeBlueColor = Color(0XFF77D4FC);
 
@@ -9,6 +11,12 @@ const kLightTitleColor = Color(0XFF697489);
 const kDarkTitleColor = Color(0XFF3A4355);
 
 const kBackgroundColor = Color(0XFF77D4FC);
+
+bool automaticLogin = false, isRememberMe = false, isLoggedIn = false;
+
+// late SharedPreferences prefs;
+
+final auth = FirebaseAuth.instance;
 
 const kListingInputDecorationStyle = TextStyle(
   color: kThemeBlueColor,
@@ -32,19 +40,19 @@ var kFocusedBorder = const OutlineInputBorder(
 
 const kLightSemiBoldTextStyle = TextStyle(
     color: kLightTitleColor,
-    fontSize: 16,
+    fontSize: 18,
     fontWeight:FontWeight.w500
 );
 
 const kBlackBoldText = TextStyle(
     color: kThemeBlackColor,
-    fontSize: 16,
+    fontSize: 18,
     fontWeight:FontWeight.bold
 );
 
 const kDarkListingInputStyle = TextStyle(
     color: kDarkTitleColor,
-    fontSize: 16,
+    fontSize: 18,
     fontWeight:FontWeight.w500
 );
 
