@@ -170,7 +170,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   const SizedBox(
                     height: 15.0,
                   ),
-                  const Text('Select your role:', style: kDarkListingInputStyle),
+                  const Text('Select your role:', style: kDarkTextSize18),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -178,7 +178,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       Expanded(
                         child: ListTile(
                           contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
-                          title: const Text('Guest', style: kDarkListingInputStyle,),
+                          title: const Text('Guest', style: kDarkTextSize18,),
                           leading: Padding(
                             padding: const EdgeInsets.only(top: 2),
                             child: Radio(
@@ -197,7 +197,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       Expanded(
                         child: ListTile(
                           contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
-                          title: const Text('Staff',style: kDarkListingInputStyle,),
+                          title: const Text('Staff',style: kDarkTextSize18,),
                           leading: Padding(
                             padding: const EdgeInsets.only(top: 2),
                             child: Radio(
@@ -220,7 +220,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                   //Birthday
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom( textStyle: kBlackBoldText, alignment:Alignment.centerLeft, elevation: 0),
+                    style: ElevatedButton.styleFrom( textStyle: kBlackBoldTextSize20, alignment:Alignment.centerLeft, elevation: 0),
                     onPressed: () => _selectBirthday(context),  // Show date picker when button is pressed
                     child: birthday == null ? const Text('Select your birthday') : Text(DateFormat('yMMMMd').format(birthday!)),
                   ),
@@ -231,7 +231,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                     //Joining Date
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom( textStyle: kBlackBoldText, alignment:Alignment.centerLeft, elevation: 0),
+                      style: ElevatedButton.styleFrom( textStyle: kBlackBoldTextSize20, alignment:Alignment.centerLeft, elevation: 0),
                       onPressed: () => _joiningDate(context),
                       child: joiningDate == null ? const Text('Select your joining date') : Text(DateFormat('yMMMMd').format(joiningDate!)),
                     ),
@@ -312,7 +312,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: const Text('Existing User? Login Here',  style: kExistingUserOrNewUser),
+                        child: const Text('Existing User? Login Here',  style: kDarkTextSize18),
                       )
                     ],
                   )

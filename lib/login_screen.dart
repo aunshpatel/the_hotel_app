@@ -190,7 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const Text(
                         'Remember Me',
-                        style: kDarkListingInputStyle,
+                        style: kDarkTextSize18,
                       )
                     ],
                   ),
@@ -214,7 +214,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const Text(
                         'Auto Login',
-                        style: kDarkListingInputStyle,
+                        style: kDarkTextSize18,
                       )
                     ],
                   )
@@ -238,7 +238,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       Navigator.pushNamed(context, '/registration_screen');
                     },
-                    child: const Text('New User? Register Here',  style: kExistingUserOrNewUser),
+                    child: const Text('New User? Register Here',  style: kDarkTextSize18),
                   )
                 ],
               )

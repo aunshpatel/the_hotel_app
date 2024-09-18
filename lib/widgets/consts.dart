@@ -46,40 +46,40 @@ const kLightSemiBoldTextStyle = TextStyle(
     fontWeight:FontWeight.w500
 );
 
-const kBlackBoldText = TextStyle(
+const kBlackBoldTextSize20 = TextStyle(
     color: kThemeBlackColor,
     fontSize: 18,
     fontWeight:FontWeight.bold
 );
 
-const kDarkListingInputStyle = TextStyle(
+const kDarkTextSize18 = TextStyle(
     color: kDarkTitleColor,
     fontSize: 18,
     fontWeight:FontWeight.w500
 );
 
-const kExistingUserOrNewUser = TextStyle(
-    color: kDarkTitleColor,
-    fontSize: 18,
-    fontWeight:FontWeight.w500
+const kLightBoldTextSize20 = TextStyle(
+  color: kLightTitleColor,
+  fontSize: 20,
+  fontWeight:FontWeight.w500
 );
 
 const kDarkBoldTextSize20 = TextStyle(
-    color: kDarkTitleColor,
-    fontSize: 20,
-    fontWeight:FontWeight.w500
+  color: kDarkTitleColor,
+  fontSize: 20,
+  fontWeight:FontWeight.w500
 );
 
-const kBlackListingInputDecorationStyle = TextStyle(
-    color: kThemeBlackColor,
-    fontSize: 17,
-    fontWeight:FontWeight.w500
+const kBlackTextSize17 = TextStyle(
+  color: kThemeBlackColor,
+  fontSize: 17,
+  fontWeight:FontWeight.w500
 );
 
 InputDecoration passwordInputDecoration(String labelText, bool passwordVisible, void Function() toggle){
   return InputDecoration(
     labelText: labelText,
-    labelStyle: kDarkListingInputStyle,
+    labelStyle: kDarkTextSize18,
     contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
     border: kBorder,
     enabledBorder: kEnabledBorder,
@@ -103,7 +103,7 @@ InputDecoration textInputDecoration(String labelText) {
     enabledBorder: kEnabledBorder,
     focusedBorder: kFocusedBorder,
     labelText: labelText,
-    labelStyle: kDarkListingInputStyle,
+    labelStyle: kDarkTextSize18,
   );
 }
 
