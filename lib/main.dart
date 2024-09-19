@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:the_hotel_app/guest_dashboard.dart';
+import 'package:the_hotel_app/guest_pages/guest_dashboard.dart';
 import 'package:the_hotel_app/registration_screen.dart';
-import 'package:the_hotel_app/staff_dashboard.dart';
+import 'package:the_hotel_app/staff_pages/staff_dashboard.dart';
 import 'package:the_hotel_app/widgets/consts.dart';
 import 'package:the_hotel_app/profile_page.dart';
 import 'data_file.dart';
