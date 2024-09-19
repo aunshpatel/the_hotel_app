@@ -102,6 +102,18 @@ const kDarkTextSize18 = TextStyle(
     fontWeight:FontWeight.w500
 );
 
+const kBoldLightTextSize18 = TextStyle(
+    color: kThemeBlueColor,
+    fontSize: 18,
+    fontWeight:FontWeight.bold
+);
+
+const kBoldDarkTextSize18 = TextStyle(
+    color: kDarkTitleColor,
+    fontSize: 18,
+    fontWeight:FontWeight.bold
+);
+
 const kBlueBoldTextSize20 = TextStyle(
     color: kThemeBlueColor,
     fontSize: 20,

@@ -89,6 +89,27 @@ class _SideDrawerState extends State<SideDrawer> {
                 ),
               ),
             ],
+            //Rooms Page
+            Container(
+              decoration: const BoxDecoration(
+                  border: Border(
+                      bottom: BorderSide(
+                        color: kThemeBlackColor,
+                      )
+                  )
+              ),
+              child: ListTile(
+                title: Wrap(
+                  children: [
+                    Text('All ', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20),
+                    Text('Rooms', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kBlueBoldTextSize20,),
+                  ],
+                ),
+                onTap: (){
+                  Navigator.pushNamed(context, '/all_room_listings');
+                },
+              ),
+            ),
             //Profile Page
             Container(
               decoration: const BoxDecoration(

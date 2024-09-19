@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_hotel_app/guest_pages/guest_dashboard.dart';
 import 'package:the_hotel_app/registration_screen.dart';
+import 'package:the_hotel_app/room_listings.dart';
 import 'package:the_hotel_app/staff_pages/add_new_room.dart';
 import 'package:the_hotel_app/staff_pages/staff_dashboard.dart';
 import 'package:the_hotel_app/staff_pages/update_room.dart';
@@ -96,6 +97,7 @@ class _MyAppState extends State<MyApp> {
               '/profile_page': (context) => const ProfilePage(),
               '/add_new_room': (context) => const AddNewRoom(),
               '/update_room': (context) => const UpdateRoom(),
+              '/all_room_listings':(context) => const RoomListings(),
             },
           );
         }
