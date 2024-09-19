@@ -5,6 +5,8 @@ import 'package:the_hotel_app/guest_dashboard.dart';
 import 'package:the_hotel_app/registration_screen.dart';
 import 'package:the_hotel_app/staff_dashboard.dart';
 import 'package:the_hotel_app/widgets/consts.dart';
+import 'package:the_hotel_app/profile_page.dart';
+import 'data_file.dart';
 import 'firebase_options.dart';
 import 'login_screen.dart';
 
@@ -29,38 +31,31 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    loginFunctionality();
+    _loginFunction();
   }
 
-  loginFunctionality() async {
+  _loginFunction() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      automaticLogin = prefs.getBool("remember_me")! || false;
-      isRememberMe = prefs.getBool('autoLogin')! || false;
-      isLoggedIn = prefs.getBool('isLoggedIn')! || false;
-      currentUser = prefs.getString('currentUser')!;
-      isGuestOrStaff = prefs.getString('isGuestOrStaff')!;
+      currentUserEmailID = prefs.getString('email') ?? '';
+      password = prefs.getString('password') ?? '';
+      isGuestOrStaff = prefs.getString('isGuestOrStaff') ?? '';
+      isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
     });
-    if(isRememberMe == true && isLoggedIn == true) {
-      String emailID = prefs.getString("email")!;
-      String password = prefs.getString("password")!;
+    try{
+      final user = await auth.signInWithEmailAndPassword(email: currentUserEmailID, password: password);
+      if(user != null){
+        final usrData = await getUserData();
+        setState(() {
+          isLoggedIn = true;
+          isGuestOrStaff = usrData[0]['isGuestOrStaff'];
+        });
+      }
+    } catch(e) {
       setState(() {
-        showSpinner = true;
+        showSpinner = false;
       });
-      // try{
-      //   final user = await auth.signInWithEmailAndPassword(email: emailID, password: password);
-      //   if(isGuestOrStaff != 'staff'){
-      //     Navigator.pushNamed(context, '/staff_dashboard');
-      //   }
-      //   else{
-      //     Navigator.pushNamed(context, '/guest_dashboard');
-      //   }
-      // } catch(e) {
-      //   setState(() {
-      //     showSpinner = false;
-      //   });
-      //   return commonAlertBox(context, 'WARNING!', e.toString());
-      // }
+      commonAlertBox(context, 'WARNING!', e.toString());
     }
   }
   
@@ -85,12 +80,13 @@ class _MyAppState extends State<MyApp> {
               colorScheme: ColorScheme.fromSeed(seedColor: kThemeBlueColor),
               useMaterial3: true,
             ),
-            initialRoute: automaticLogin == false ? '/login_screen' : (isGuestOrStaff == 'staff' ? '/staff_dashboard' : '/guest_dashboard'),
+            initialRoute: isLoggedIn == false ? '/login_screen' : (isGuestOrStaff == 'staff' ? '/staff_dashboard' : '/guest_dashboard'),
             routes: {
               '/login_screen':(context) => const LoginScreen(),
               '/registration_screen':(context) => const RegistrationScreen(),
               '/staff_dashboard':(context) => const StaffDashboard(),
               '/guest_dashboard':(context) => const GuestDashboard(),
+              '/profile_page':(context) => ProfilePage(),
             },
           );
         }

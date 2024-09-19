@@ -18,80 +18,56 @@ class _LoginScreenState extends State<LoginScreen> {
   String loginEmailID = '', loginPassword = '';
   bool showSpinner = false;
   bool _passwordVisible = false;
-  bool _isRememberMe = false;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  actionRememberMe(bool value) async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _isRememberMe = value;
-    SharedPreferences.getInstance().then((prefs) {
-      prefs.setBool("remember_me", _isRememberMe);
-    },);
-    setState(() {
-      _isRememberMe = value;
-    });
-  }
-
-  autoLogin(bool autoLogin) async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if(autoLogin == true){
-      actionRememberMe(true);
-      SharedPreferences.getInstance().then((prefs) {
-        setState(() {
-          isRememberMe = true;
-        });
-        prefs.setBool('autoLogin', autoLogin);
-        prefs.setBool('isRememberMe', isRememberMe);
-      },);
-    }
-    else{
-      actionRememberMe(true);
-      SharedPreferences.getInstance().then((prefs) {
-        setState(() {
-          isRememberMe = false;
-        });
-        prefs.setBool('autoLogin', autoLogin);
-        prefs.setBool('isRememberMe', isRememberMe);
-      },);
-    }
-  }
-
   _loginFunction() async {
     try{
-      final user = await auth.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text);
+      final user = await auth.signInWithEmailAndPassword(email: email, password: pwd);
       if(user != null){
-        // Navigator.pushNamed(context, '/task_screen');
-        commonAlertBox(context, 'WARNING!', 'LOGIN SUCCESSFUL');
-        currentUser = email;
-
+        setState(() {
+          currentUserEmailID = email;
+        });
 
         final usrData = await getUserData();
-        print("usrData:$usrData");
-        if(usrData[0]['isGuestOrStaff'] == 'staff') {
-          Navigator.pushNamed(context, '/staff_dashboard');
-        } else {
-          Navigator.pushNamed(context, '/guest_dashboard');
-        }
-
         setState(() {
           isLoggedIn = true;
-          currentUser = email;
           isGuestOrStaff = usrData[0]['isGuestOrStaff'];
         });
 
         SharedPreferences.getInstance().then((prefs) {
-          prefs.setBool('isLoggedIn', true);
-          if(isRememberMe == true && isLoggedIn == true) {
-            prefs.setString('currentUser', currentUser);
+          if(isLoggedIn == true) {
+            prefs.setBool('isLoggedIn', true);
+            prefs.setString('currentUserEmailID', currentUserEmailID);
             prefs.setString('emailID', email);
             prefs.setString('password', pwd);
             prefs.setString('isGuestOrStaff', usrData[0]['isGuestOrStaff']);
+          } else {
+            prefs.setBool('isLoggedIn', false);
+            prefs.setString('currentUserEmailID', '');
+            prefs.setString('emailID', '');
+            prefs.setString('password', '');
+            prefs.setString('isGuestOrStaff', '');
           }
         },);
+
+        if(usrData[0]['isGuestOrStaff'] == 'staff') {
+          commonAlertBoxWithNavigation(context, 'SUCCESS!', 'LOGIN SUCCESSFUL', '/staff_dashboard');
+          // Navigator.pushNamed(context, '/staff_dashboard');
+        } else {
+          commonAlertBoxWithNavigation(context, 'SUCCESS!', 'LOGIN SUCCESSFUL', '/guest_dashboard');
+          // Navigator.pushNamed(context, '/guest_dashboard');
+        }
       }
       else{
         commonAlertBox(context, 'WARNING!','Incorrect email or password. Please enter your email and password again.');
+        SharedPreferences.getInstance().then((prefs) {
+          prefs.setBool('isLoggedIn', false);
+          prefs.setString('currentUserEmailID', '');
+          prefs.setString('emailID', '');
+          prefs.setString('password', '');
+          prefs.setString('isGuestOrStaff', '');
+        },);
         setState(() {
           showSpinner = false;
         });
@@ -162,63 +138,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     });
                   }
                 ),
-              ),
-              const SizedBox(
-                height: 15.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Checkbox(
-                        checkColor: kThemeBlueColor,
-                        side: WidgetStateBorderSide.resolveWith(
-                              (states) => const BorderSide(width: 1.5, color: kThemeBlackColor),
-                        ),
-                        fillColor: WidgetStateProperty.all(Colors.transparent),
-                        value: _isRememberMe,
-                        onChanged: isRememberMe == false ? (value){
-                          setState(() {
-                            _isRememberMe = value!;
-                          });
-                          actionRememberMe(_isRememberMe);
-                        } : null,
-                      ),
-                      const Text(
-                        'Remember Me',
-                        style: kDarkTextSize18,
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Checkbox(
-                        checkColor: kThemeBlueColor,
-                        side: WidgetStateBorderSide.resolveWith(
-                              (states) => const BorderSide(width: 1.5, color: kThemeBlackColor),
-                        ),
-                        fillColor: WidgetStateProperty.all(Colors.transparent),
-                        value: automaticLogin,
-                        onChanged: (value){
-                          setState(() {
-                            automaticLogin = value!;
-                          });
-                          autoLogin(automaticLogin);
-                        },
-                      ),
-                      const Text(
-                        'Auto Login',
-                        style: kDarkTextSize18,
-                      )
-                    ],
-                  )
-                ],
               ),
               const SizedBox(
                 height: 15.0,
