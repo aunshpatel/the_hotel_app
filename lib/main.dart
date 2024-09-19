@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_hotel_app/guest_pages/guest_dashboard.dart';
 import 'package:the_hotel_app/registration_screen.dart';
+import 'package:the_hotel_app/staff_pages/add_new_room.dart';
 import 'package:the_hotel_app/staff_pages/staff_dashboard.dart';
+import 'package:the_hotel_app/staff_pages/update_room.dart';
 import 'package:the_hotel_app/widgets/consts.dart';
 import 'package:the_hotel_app/profile_page.dart';
 import 'data_file.dart';
@@ -87,11 +89,13 @@ class _MyAppState extends State<MyApp> {
             ),
             initialRoute: isLoggedIn == false ? '/login_screen' : (isGuestOrStaff == 'staff' ? '/staff_dashboard' : '/guest_dashboard'),
             routes: {
-              '/login_screen':(context) => const LoginScreen(),
-              '/registration_screen':(context) => const RegistrationScreen(),
-              '/staff_dashboard':(context) => const StaffDashboard(),
-              '/guest_dashboard':(context) => const GuestDashboard(),
-              '/profile_page':(context) => ProfilePage(),
+              '/login_screen': (context) => const LoginScreen(),
+              '/registration_screen': (context) => const RegistrationScreen(),
+              '/staff_dashboard': (context) => const StaffDashboard(),
+              '/guest_dashboard': (context) => const GuestDashboard(),
+              '/profile_page': (context) => const ProfilePage(),
+              '/add_new_room': (context) => const AddNewRoom(),
+              '/update_room': (context) => const UpdateRoom(),
             },
           );
         }
