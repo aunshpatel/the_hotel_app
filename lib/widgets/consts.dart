@@ -14,7 +14,7 @@ const kBackgroundColor = Color(0XFF77D4FC);
 
 bool automaticLogin = false, isRememberMe = false, isLoggedIn = false;
 
-String currentUser = '', isGuestOrStaff = '';
+String currentUserEmailID = '', isGuestOrStaff = '';
 
 // late SharedPreferences prefs;
 
