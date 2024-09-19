@@ -107,7 +107,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   userRegistration() async{
     try {
-      bool emailExists = await isEmailAlreadyRegistered(email, 'registered_user');
+      bool emailExists = await isEmailAlreadyRegistered(email);
       if (emailExists) {
         commonAlertBox(context, 'WARNING!', 'This email is already registered. Please login with that email id.');
       }
