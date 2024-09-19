@@ -34,11 +34,12 @@ class _AddNewRoomState extends State<AddNewRoom> {
   final TextEditingController bedQuantityController = TextEditingController();
   int roomNumber = 0, maximumPeople = 0, roomSize = 0, bedQuantity = 0;
   double rentAmount = 0.0;
-  String description = '', roomType = '', bedType = '', cancellationPolicy = '', roomView = '', smokingPolicy = '';
+  String description = '', roomType = '', bedType = 'Twin/Single', cancellationPolicy = '', roomView = '';
   String? selectedCurrencyCode;
   bool uploading = false, isUploadButtonDisabled = false;
-  String roomTypeDropdownDefault = 'Regular', roomAvailabilityDropdownDefault = 'Available';
-  final List<String> roomTypeDropdown = ['Regular', 'Semi-Deluxe', 'Deluxe', 'Suite'], roomAvailability = ['Available', 'Not Available', 'Out of Service'];
+  String roomTypeDropdownDefault = 'Regular', roomAvailabilityDropdownDefault = 'Available', smokingPolicy = 'No Smoking';
+  final List<String> bedTypeDropdown = ['Twin/Single', 'Full/Double', 'Queen', 'King'];
+  final List<String> roomTypeDropdown = ['Regular', 'Semi-Deluxe', 'Deluxe', 'Suite'], roomAvailability = ['Available', 'Not Available', 'Out of Service'], smokingPolicyDropdown = ['No Smoking', 'Smoking Allowed'];
   final List<String> amenityOptions = ['TV', 'Swimming Pool', 'Fitness Center', 'Complimentary Breakfast', 'Complimentary Lunch', 'Complimentary Dinner', 'Complimentary Parking', 'Complimentary WiFi', 'Room Service', 'In Room Bar'];
   List<String> selectedAmenities = [], urlOfImageUploaded = [];
   var pickedImages;
@@ -215,15 +216,11 @@ class _AddNewRoomState extends State<AddNewRoom> {
   }
 
   _addNewRoomButton() {
-    if(description == '' &&  roomType == '' &&  bedType == '' &&  cancellationPolicy == '' &&  roomView == '' &&  smokingPolicy == '' &&   roomNumber == 0 &&  maximumPeople == 0  &&  roomSize == 0 &&  bedQuantity ==  0 && urlOfImageUploaded.isEmpty) {
+    if(description == '' &&  cancellationPolicy == '' &&  roomView == '' &&  smokingPolicy == '' &&   roomNumber == 0 &&  maximumPeople == 0  &&  roomSize == 0 &&  bedQuantity ==  0 && urlOfImageUploaded.isEmpty) {
       commonAlertBox(context, 'WARNING!', 'Please fill out all fields!');
     } else if(description == '') {
       commonAlertBox(context, 'WARNING!', 'Description field can not be empty!');
-    } else if(roomType == '') {
-      commonAlertBox(context, 'WARNING!', 'Room type field can not be empty!');
-    } else if(bedType == '') {
-      commonAlertBox(context, 'WARNING!', 'Bed type field can not be empty!');
-    } else if(cancellationPolicy == '') {
+    }else if(cancellationPolicy == '') {
       commonAlertBox(context, 'WARNING!', 'Cancellation policy field can not be empty!');
     } else if(roomView == '') {
       commonAlertBox(context, 'WARNING!', 'Room view field can not be empty!');
@@ -232,7 +229,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
     } else if(urlOfImageUploaded.isEmpty) {
       commonAlertBox(context, 'WARNING!', 'Please upload atleast 1 image!');
     } else{
-      _addNewRoomFirestore.collection('room_data').add({'availability':roomAvailabilityDropdownDefault, 'availableAmenities':selectedAmenities, 'bedQuantity':bedQuantity, 'bedType':bedType, 'cancellationPolicy': cancellationPolicy, 'currencyType':selectedCurrencyCode, 'description': description, 'images':urlOfImageUploaded, 'maximumPeople':maximumPeople, 'rent':rentAmount, 'roomNumber':roomNumber, 'roomType':roomType, 'smokingPolicy':smokingPolicy, 'viewType':roomView});
+      _addNewRoomFirestore.collection('room_data').add({'availability':roomAvailabilityDropdownDefault, 'availableAmenities':selectedAmenities, 'bedQuantity':bedQuantity, 'bedType':bedType, 'cancellationPolicy': cancellationPolicy, 'currencyType':selectedCurrencyCode, 'description': description, 'images':urlOfImageUploaded, 'maximumPeople':maximumPeople, 'rent':rentAmount, 'roomNumber':roomNumber, 'roomType':roomTypeDropdownDefault, 'smokingPolicy':smokingPolicy, 'viewType':roomView});
       commonAlertBoxWithNavigation(context, 'SUCCESS!', 'Room added successfully.', '/staff_dashboard');
     }
   }
@@ -372,16 +369,28 @@ class _AddNewRoomState extends State<AddNewRoom> {
                               height: 17.5,
                             ),
                             // Bed Type
-                            TextField(
-                              controller: bedTypeController,
-                              keyboardType: TextInputType.text,
-                              onChanged:(value){
-                                setState(() {
-                                  bedType = value;
-                                });
-                              },
-                              style: TextStyle(color: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor),
-                              decoration: textInputDecoration('Bed Type'),
+
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Bed Type:',  style:  isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
+                                DropdownButton(
+                                  value: bedType,
+                                  icon: const Icon(Icons.keyboard_arrow_down),
+                                  items: bedTypeDropdown.map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value, style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
+                                    );
+                                  }).toList(),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      roomTypeDropdownDefault = newValue!;
+                                    });
+                                  },
+                                ),
+                              ],
                             ),
                             const SizedBox(
                               height: 17.5,
@@ -416,7 +425,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
                                     child: Row(
                                       children: [
                                         ConstrainedBox(
-                                          constraints: const BoxConstraints(maxWidth: 154),
+                                          constraints: const BoxConstraints(maxWidth: 148),
                                           child: Text('${currency.code} - ${currency.name}', overflow: TextOverflow.ellipsis, style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle,),
                                         ),
                                       ],
@@ -545,17 +554,31 @@ class _AddNewRoomState extends State<AddNewRoom> {
                             const SizedBox(
                               height: 17.5,
                             ),
-                            // Room View
-                            TextField(
-                              controller: smokingPolicyController,
-                              keyboardType: TextInputType.text,
-                              onChanged:(value){
-                                setState(() {
-                                  smokingPolicy = value;
-                                });
-                              },
-                              style: TextStyle(color: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor),
-                              decoration: textInputDecoration('Smoking Policy'),
+                            // Smoking Policy
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Smoking Policy:',  style:  isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: DropdownButton(
+                                    value: smokingPolicy,
+                                    icon: const Icon(Icons.keyboard_arrow_down),
+                                    items: smokingPolicyDropdown.map<DropdownMenuItem<String>>((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value, style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
+                                      );
+                                    }).toList(),
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        smokingPolicy = newValue!;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
                             const SizedBox(
                               height: 17.5,
