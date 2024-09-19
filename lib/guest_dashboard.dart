@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_hotel_app/widgets/consts.dart';
 import 'package:the_hotel_app/widgets/side_drawer.dart';
 
 class GuestDashboard extends StatefulWidget {
@@ -14,7 +15,9 @@ class _GuestDashboardState extends State<GuestDashboard> {
     return Scaffold(
       drawer: SideDrawer(),
       appBar: AppBar(
+        centerTitle: true,
         title: Text('Guest Dashboard'),
+        backgroundColor: kThemeBlueColor,
       ),
       body: Padding(
         padding: EdgeInsets.all(20),
