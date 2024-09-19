@@ -37,28 +37,30 @@ class _MyAppState extends State<MyApp> {
   _loginFunction() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      currentUserEmailID = prefs.getString('email') ?? '';
+      currentUserEmailID = prefs.getString('emailID') ?? '';
       password = prefs.getString('password') ?? '';
       isGuestOrStaff = prefs.getString('isGuestOrStaff') ?? '';
       isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
     });
-    try{
-      final user = await auth.signInWithEmailAndPassword(email: currentUserEmailID, password: password);
-      if(user != null){
-        final usrData = await getUserData();
+    if(isLoggedIn == true) {
+      try{
+        final user = await auth.signInWithEmailAndPassword(email: currentUserEmailID, password: password);
+        if(user != null){
+          final usrData = await getUserData();
+          setState(() {
+            isLoggedIn = true;
+            currentUserJoiningDate = (usrData[0]['joiningDate']).toDate();
+            currentUserBirthday = (usrData[0]['birthday']).toDate();
+            isGuestOrStaff = usrData[0]['isGuestOrStaff'];
+          });
+          print("currentUserJoiningDate:$currentUserJoiningDate, currentUserBirthday:$currentUserBirthday");
+        }
+      } catch(e) {
         setState(() {
-          isLoggedIn = true;
-          currentUserJoiningDate = (usrData[0]['joiningDate']).toDate();
-          currentUserBirthday = (usrData[0]['birthday']).toDate();
-          isGuestOrStaff = usrData[0]['isGuestOrStaff'];
+          showSpinner = false;
         });
-        print("currentUserJoiningDate:$currentUserJoiningDate, currentUserBirthday:$currentUserBirthday");
+        commonAlertBox(context, 'WARNING!', e.toString());
       }
-    } catch(e) {
-      setState(() {
-        showSpinner = false;
-      });
-      commonAlertBox(context, 'WARNING!', e.toString());
     }
   }
   
