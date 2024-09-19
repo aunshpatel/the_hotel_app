@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
         SharedPreferences.getInstance().then((prefs) {
           if(isLoggedIn == true) {
             prefs.setBool('isLoggedIn', true);
-            prefs.setString('currentUserEmailID', currentUserEmailID);
+            prefs.setString('currentUserEmailID', email);
             prefs.setString('emailID', email);
             prefs.setString('password', pwd);
             prefs.setString('isGuestOrStaff', usrData[0]['isGuestOrStaff']);
