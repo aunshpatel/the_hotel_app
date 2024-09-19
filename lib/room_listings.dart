@@ -71,6 +71,8 @@ class _RoomListingsState extends State<RoomListings> {
                       itemCount: items.length,
                       itemBuilder: (BuildContext context, int index) {
                         String currencyType = items[index]['currencyType'].split(' - ')[0];
+                        List<dynamic> amenities = items[index]['availableAmenities'] ?? [];
+                        String amenitiesText = amenities.join(', ');
                         return Column(
                           children: [
                             Row(
@@ -155,7 +157,16 @@ class _RoomListingsState extends State<RoomListings> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text('View Type:', style:isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldLightTextSize18),
-                                              Text('${items[index]['viewType'].toString()}', style:isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
+                                              Text(items[index]['viewType'].toString(), style:isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 6,),
+                                          Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text('Amenities:', style:isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldLightTextSize18),
+                                              Text(amenitiesText, style:isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
                                             ],
                                           ),
                                           const SizedBox(height: 6,),
