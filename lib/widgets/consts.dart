@@ -54,6 +54,18 @@ const kBlackBoldTextSize20 = TextStyle(
     fontWeight:FontWeight.bold
 );
 
+const kButtonBlackTextSize24 = const TextStyle(
+  fontSize: 24,
+  fontWeight: FontWeight.bold,
+  color: kThemeBlackColor,
+);
+
+const kButtonBlackTextSize18 = const TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.bold,
+  color: kThemeBlackColor,
+);
+
 const kDarkTextSize18 = TextStyle(
     color: kDarkTitleColor,
     fontSize: 18,

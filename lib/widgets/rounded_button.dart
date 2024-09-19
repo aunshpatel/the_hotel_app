@@ -21,12 +21,8 @@ class RoundedButton extends StatelessWidget {
           minWidth: 150.0,
           height: 60.0,
           child: Text(
-              title,
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: kThemeBlackColor,
-              )
+            title,
+            style: kButtonBlackTextSize24
           ),
         ),
       ),

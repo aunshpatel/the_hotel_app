@@ -164,6 +164,28 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: const Text('New User? Register Here',  style: kDarkTextSize18),
                   )
                 ],
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 200,
+                    decoration: BoxDecoration(
+                      color: kThemeBlueColor,
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: MaterialButton(
+                        onPressed: null,
+                        child: Text('Enable Dark Mode',  style: kButtonBlackTextSize18),
+                      ),
+                    ),
+                  ),
+                ],
               )
             ],
           ),
