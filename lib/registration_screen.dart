@@ -316,7 +316,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: const Text('Existing User? Login Here',  style: kDarkTextSize18),
+                        child: Text('Existing User? Login Here',  style: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
                       )
                     ],
                   )
