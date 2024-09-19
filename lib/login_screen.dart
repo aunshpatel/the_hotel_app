@@ -33,6 +33,9 @@ class _LoginScreenState extends State<LoginScreen> {
         setState(() {
           isLoggedIn = true;
           isGuestOrStaff = usrData[0]['isGuestOrStaff'];
+          currentUserJoiningDate = (usrData[0]['joiningDate']).toDate();
+          currentUserBirthday = (usrData[0]['birthday']).toDate();
+          print("currentUserJoiningDate at login:$currentUserJoiningDate, currentUserBirthday:$currentUserBirthday");
         });
 
         SharedPreferences.getInstance().then((prefs) {
@@ -41,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
             prefs.setString('currentUserEmailID', email);
             prefs.setString('emailID', email);
             prefs.setString('password', pwd);
-            prefs.setString('isGuestOrStaff', usrData[0]['isGuestOrStaff']);
+            prefs.setString('joiningDate', usrData[0]['isGuestOrStaff']);
           } else {
             prefs.setBool('isLoggedIn', false);
             prefs.setString('currentUserEmailID', '');

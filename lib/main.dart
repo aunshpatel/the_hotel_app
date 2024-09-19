@@ -48,8 +48,11 @@ class _MyAppState extends State<MyApp> {
         final usrData = await getUserData();
         setState(() {
           isLoggedIn = true;
+          currentUserJoiningDate = (usrData[0]['joiningDate']).toDate();
+          currentUserBirthday = (usrData[0]['birthday']).toDate();
           isGuestOrStaff = usrData[0]['isGuestOrStaff'];
         });
+        print("currentUserJoiningDate:$currentUserJoiningDate, currentUserBirthday:$currentUserBirthday");
       }
     } catch(e) {
       setState(() {
