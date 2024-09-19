@@ -37,7 +37,7 @@ class _SideDrawerState extends State<SideDrawer> {
                   title: Wrap(
                     children: [
                       Text('Dash', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20),
-                      Text('board', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20,),
+                      Text('board', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kBlueBoldTextSize20,),
                     ],
                   ),
                   onTap: (){
@@ -60,7 +60,7 @@ class _SideDrawerState extends State<SideDrawer> {
                   title: Wrap(
                     children: [
                       Text('My ', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20),
-                      Text('Dashboard', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20,),
+                      Text('Dashboard', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kBlueBoldTextSize20,),
                     ],
                   ),
                   onTap: (){
@@ -82,7 +82,7 @@ class _SideDrawerState extends State<SideDrawer> {
                 title: Wrap(
                   children: [
                     Text('My ', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20),
-                    Text('Profile', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20,),
+                    Text('Profile', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kBlueBoldTextSize20,),
                   ],
                 ),
                 onTap: (){

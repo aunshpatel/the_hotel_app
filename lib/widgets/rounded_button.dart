@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:the_hotel_app/widgets/consts.dart';
 
 class RoundedButton extends StatelessWidget {
-  RoundedButton({required this.colour, required this.title, required this.onPress});
+  RoundedButton({required this.colour, required this.title, required this.txtStyle, required this.onPress});
 
   final Color colour;
   final String title;
+  final TextStyle txtStyle;
   VoidCallback? onPress;
 
   @override
@@ -22,7 +23,7 @@ class RoundedButton extends StatelessWidget {
           height: 60.0,
           child: Text(
             title,
-            style: isDarkModeEnabled == false ? kButtonBlackTextSize24 : kButtonBlueTextSize24
+            style: txtStyle
           ),
         ),
       ),

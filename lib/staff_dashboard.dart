@@ -13,11 +13,13 @@ class _StaffDashboardState extends State<StaffDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: isDarkModeEnabled == false ? Colors.white : Colors.grey,
       drawer: SideDrawer(),
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Staff Dashboard'),
-        backgroundColor: kThemeBlueColor,
+        title: Text('Staff Dashboard', style:TextStyle(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor),),
+        backgroundColor: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
+        iconTheme: IconThemeData(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor),
       ),
       body: Padding(
         padding: EdgeInsets.all(20),

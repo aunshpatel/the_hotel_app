@@ -49,30 +49,31 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> _selectBirthday(BuildContext context) async {
     // Define the initial date, first date, and last date to show in the date picker
     final DateTime? pickedDate = await showDatePicker(
-        context: context,
-        barrierDismissible: false,
-        initialDate: birthday ?? DateTime.now(),
-        firstDate: DateTime(1900),
-        lastDate: DateTime.now(),
-        builder: (BuildContext context, Widget? widget) => Theme(
-          data: ThemeData(
-              colorScheme: const ColorScheme.light(primary: kThemeBlueColor),
-              datePickerTheme: const DatePickerThemeData(
-                backgroundColor: Colors.white,
-                dividerColor: kThemeBlueColor,
-                headerBackgroundColor: kThemeBlueColor,
-                headerForegroundColor: Colors.white,
-              ),
-              textButtonTheme: TextButtonThemeData(
-                style: TextButton.styleFrom(
-                  textStyle: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              )
+      context: context,
+      barrierDismissible: false,
+      initialDate: birthday ?? DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+      builder: (BuildContext context, Widget? widget) => Theme(
+        data: ThemeData(
+          colorScheme: ColorScheme.light(primary: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor),
+          datePickerTheme: DatePickerThemeData(
+            backgroundColor: isDarkModeEnabled == false ? Colors.white : Colors.grey,
+            dividerColor: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
+            headerBackgroundColor: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
+            headerForegroundColor: isDarkModeEnabled == false ? Colors.white : Colors.grey,
           ),
-          child: widget!,
-        )
+          textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+              textStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
+              ),
+            ),
+          )
+        ),
+        child: widget!,
+      )
     );
 
 
@@ -87,30 +88,31 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> _joiningDate(BuildContext context) async {
     // Define the initial date, first date, and last date to show in the date picker
     final DateTime? _selectedDate = await showDatePicker(
-        context: context,
-        barrierDismissible: false,
-        initialDate: joiningDate ?? DateTime.now(),
-        firstDate: DateTime(1900),
-        lastDate: DateTime.now(),
-        builder: (BuildContext context, Widget? widget) => Theme(
-          data: ThemeData(
-              colorScheme: const ColorScheme.light(primary: kThemeBlueColor),
-              datePickerTheme: const DatePickerThemeData(
-                backgroundColor: Colors.white,
-                dividerColor: kThemeBlueColor,
-                headerBackgroundColor: kThemeBlueColor,
-                headerForegroundColor: Colors.white,
-              ),
-              textButtonTheme: TextButtonThemeData(
-                style: TextButton.styleFrom(
-                  textStyle: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              )
+      context: context,
+      barrierDismissible: false,
+      initialDate: joiningDate ?? DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+      builder: (BuildContext context, Widget? widget) => Theme(
+        data: ThemeData(
+          colorScheme: ColorScheme.light(primary: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor),
+          datePickerTheme:  DatePickerThemeData(
+            backgroundColor: isDarkModeEnabled == false ? Colors.white : Colors.grey,
+            dividerColor: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
+            headerBackgroundColor: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
+            headerForegroundColor: isDarkModeEnabled == false ? Colors.white : Colors.grey,
           ),
-          child: widget!,
-        )
+          textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+              textStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor
+              ),
+            ),
+          )
+        ),
+        child: widget!,
+      )
     );
     if (_selectedDate != null && _selectedDate != joiningDate) {
       setState(() {
@@ -134,13 +136,14 @@ class _ProfilePageState extends State<ProfilePage> {
     return PopScope(
       canPop: false,
       child: Scaffold(
+        backgroundColor: isDarkModeEnabled == false ? Colors.white : Colors.grey,
         drawerEnableOpenDragGesture: true,
         drawer: SideDrawer(),
         appBar: AppBar(
-          // automaticallyImplyLeading: false,
           centerTitle: true,
-          title: const Text('My Profile', style:TextStyle(color: kThemeBlackColor),),
-          backgroundColor: kThemeBlueColor,
+          title: Text('My Profile', style:TextStyle(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor),),
+          backgroundColor: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
+          iconTheme: IconThemeData(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor),
         ),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(24, 40, 24, 0),
@@ -192,13 +195,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   pwd = passwordController.text;
                 },
                 decoration: passwordInputDecoration(
-                    'Enter your password',
-                    _passwordVisible,
-                        (){
-                      setState(() {
-                        _passwordVisible = !_passwordVisible;
-                      });
-                    }
+                  'Enter your password',
+                  _passwordVisible,
+                      (){
+                    setState(() {
+                      _passwordVisible = !_passwordVisible;
+                    });
+                  }
                 ),
               ),
               const SizedBox(
@@ -206,9 +209,9 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               //Birthday
               ElevatedButton(
-                style: ElevatedButton.styleFrom( textStyle: kBlackBoldTextSize20, alignment:Alignment.centerLeft, elevation: 0),
+                style: ElevatedButton.styleFrom( textStyle: isDarkModeEnabled == false ? kBlackBoldTextSize18 : kBlueBoldTextSize18, alignment:Alignment.centerLeft, elevation: 0),
                 onPressed: () => _selectBirthday(context),  // Show date picker when button is pressed
-                child: currentUserBirthday == null ? const Text('Select your birthday') : Text(DateFormat('yMMMMd').format(currentUserBirthday!)),
+                child: currentUserBirthday == null ? Text('Select your birthday', style:TextStyle(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor)) : Text(DateFormat('yMMMMd').format(currentUserBirthday!), style:TextStyle(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor)),
               ),
               const SizedBox(
                 height: 15.0,
@@ -219,18 +222,53 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 //Joining Date
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom( textStyle: kBlackBoldTextSize20, alignment:Alignment.centerLeft, elevation: 0),
+                  style: ElevatedButton.styleFrom( textStyle: isDarkModeEnabled == false ? kBlackBoldTextSize18 : kBlueBoldTextSize18, alignment:Alignment.centerLeft, elevation: 0),
                   onPressed: () => _joiningDate(context),
-                  child: currentUserJoiningDate == null ? const Text('Select your joining date') : Text(DateFormat('yMMMMd').format(currentUserJoiningDate!)),
+                  child: currentUserJoiningDate == null ? Text('Select your joining date', style:TextStyle(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor),) : Text(DateFormat('yMMMMd').format(currentUserJoiningDate!), style:TextStyle(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor),),
                 ),
               ],
               const SizedBox(
                 height: 15.0,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 200,
+                    decoration: BoxDecoration(
+                      color:  isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: MaterialButton(
+                        onPressed: () {
+                          setState(() {
+                            if(isDarkModeEnabled == false) {
+                              isDarkModeEnabled = true;
+                            } else {
+                              isDarkModeEnabled = false;
+                            }
+                          });
+                          print('isDarkModeEnabled$isDarkModeEnabled');
+                          SharedPreferences.getInstance().then((prefs) {
+                            prefs.setBool('isDarkModeEnabled', isDarkModeEnabled);
+                          },);
+                        },
+                        child: isDarkModeEnabled == false ? Text('Enable Dark Mode',  style: kButtonBlackTextSize18) : Text('Enable Light Mode',  style:  isDarkModeEnabled == false ? kButtonBlackTextSize18 : kButtonBlueTextSize18),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 15.0,
+              ),
               RoundedButton(
-                colour:kThemeBlueColor,
+                colour: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
                 title:'Logout',
                 onPress: _logoutFunction,
+                txtStyle: isDarkModeEnabled == false ? kButtonBlackTextSize24 : kButtonBlueTextSize24,
               ),
             ],
           ),

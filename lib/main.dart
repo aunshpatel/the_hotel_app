@@ -41,6 +41,7 @@ class _MyAppState extends State<MyApp> {
       password = prefs.getString('password') ?? '';
       isGuestOrStaff = prefs.getString('isGuestOrStaff') ?? '';
       isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+      isDarkModeEnabled = prefs.getBool('isDarkModeEnabled') ?? false;
     });
     if(isLoggedIn == true) {
       try{
@@ -80,9 +81,8 @@ class _MyAppState extends State<MyApp> {
               strokeWidth: 5,
             ),
           ) : MaterialApp(
-            title: 'Flutter Demo',
             theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: kThemeBlueColor),
+              colorScheme: ColorScheme.fromSeed(seedColor: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor),
               useMaterial3: true,
             ),
             initialRoute: isLoggedIn == false ? '/login_screen' : (isGuestOrStaff == 'staff' ? '/staff_dashboard' : '/guest_dashboard'),
@@ -120,14 +120,14 @@ somethingWentWrong(BuildContext context) {
     barrierDismissible: false,
     builder: (BuildContext context) {
       return AlertDialog.adaptive(
-        title: Text('WARNING'),
-        content: Text('Something Went Wrong!', style: kLightSemiBoldTextStyle),
+        title: Text('WARNING!', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
+        content: Text('Something Went Wrong!', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
         actions: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                child: const Text('OK', style: kLightSemiBoldTextStyle),
+                child: Text('OK', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },

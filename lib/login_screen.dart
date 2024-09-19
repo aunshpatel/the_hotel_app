@@ -21,6 +21,32 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    initStateFunction();
+  }
+
+  initStateFunction() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isDarkModeEnabled = prefs.getBool('isDarkModeEnabled') ?? false;
+    });
+  }
+
+  triggerDarkMode() {
+    setState(() {
+      if(isDarkModeEnabled == false) {
+        isDarkModeEnabled = true;
+      } else {
+        isDarkModeEnabled = false;
+      }
+    });
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.setBool('isDarkModeEnabled', isDarkModeEnabled);
+    },);
+  }
+
   _loginFunction() async {
     try{
       final user = await auth.signInWithEmailAndPassword(email: email, password: pwd);
@@ -89,12 +115,13 @@ class _LoginScreenState extends State<LoginScreen> {
     return PopScope(
       canPop: false,
       child: Scaffold(
+        backgroundColor: isDarkModeEnabled == false ? Colors.white : Colors.grey,
         drawerEnableOpenDragGesture: true,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           centerTitle: true,
-          title: const Text('Login Screen', style:TextStyle(color: kThemeBlackColor),),
-          backgroundColor: kThemeBlueColor,
+          title: Text('Login Screen', style:TextStyle(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor),),
+          backgroundColor: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
         ),
         body: showSpinner == true ? const Center(
           child: CircularProgressIndicator(
@@ -147,9 +174,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 15.0,
               ),
               RoundedButton(
-                colour:kThemeBlueColor,
+                colour: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
                 title:'Login',
                 onPress: _loginFunction,
+                txtStyle: isDarkModeEnabled == false ? kButtonBlackTextSize24 : kButtonBlueTextSize24,
               ),
               const SizedBox(
                 height: 10.0,
@@ -161,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       Navigator.pushNamed(context, '/registration_screen');
                     },
-                    child: const Text('New User? Register Here',  style: kDarkTextSize18),
+                    child: Text('New User? Register Here',  style:  isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
                   )
                 ],
               ),
@@ -174,14 +202,26 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(
                     width: 200,
                     decoration: BoxDecoration(
-                      color: kThemeBlueColor,
+                      color:  isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                     child: Padding(
                       padding: EdgeInsets.all(5),
                       child: MaterialButton(
-                        onPressed: null,
-                        child: Text('Enable Dark Mode',  style: kButtonBlackTextSize18),
+                        onPressed: () {
+                          setState(() {
+                            if(isDarkModeEnabled == false) {
+                              isDarkModeEnabled = true;
+                            } else {
+                              isDarkModeEnabled = false;
+                            }
+                          });
+                          print('isDarkModeEnabled$isDarkModeEnabled');
+                          SharedPreferences.getInstance().then((prefs) {
+                            prefs.setBool('isDarkModeEnabled', isDarkModeEnabled);
+                          },);
+                        },
+                        child: isDarkModeEnabled == false ? Text('Enable Dark Mode',  style: isDarkModeEnabled == false ? kButtonBlackTextSize18 : kButtonBlueTextSize18) : Text('Enable Light Mode',  style:  isDarkModeEnabled == false ? kButtonBlackTextSize18 : kButtonBlueTextSize18),
                       ),
                     ),
                   ),

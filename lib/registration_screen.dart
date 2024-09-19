@@ -39,17 +39,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       lastDate: DateTime.now(),
       builder: (BuildContext context, Widget? widget) => Theme(
         data: ThemeData(
-          colorScheme: const ColorScheme.light(primary: kThemeBlueColor),
-          datePickerTheme: const DatePickerThemeData(
-            backgroundColor: Colors.white,
-            dividerColor: kThemeBlueColor,
-            headerBackgroundColor: kThemeBlueColor,
-            headerForegroundColor: Colors.white,
+          colorScheme: ColorScheme.light(primary: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor),
+          datePickerTheme: DatePickerThemeData(
+            backgroundColor: isDarkModeEnabled == false ? Colors.white : Colors.grey,
+            dividerColor: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
+            headerBackgroundColor: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
+            headerForegroundColor: isDarkModeEnabled == false ? Colors.white : Colors.grey,
           ),
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
-              textStyle: const TextStyle(
+              textStyle: TextStyle(
                 fontWeight: FontWeight.bold,
+                color: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
               ),
             ),
           )
@@ -77,17 +78,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       lastDate: DateTime.now(),
       builder: (BuildContext context, Widget? widget) => Theme(
         data: ThemeData(
-          colorScheme: const ColorScheme.light(primary: kThemeBlueColor),
-          datePickerTheme: const DatePickerThemeData(
-            backgroundColor: Colors.white,
-            dividerColor: kThemeBlueColor,
-            headerBackgroundColor: kThemeBlueColor,
-            headerForegroundColor: Colors.white,
+          colorScheme: ColorScheme.light(primary: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor),
+          datePickerTheme: DatePickerThemeData(
+            backgroundColor: isDarkModeEnabled == false ? Colors.white : Colors.grey,
+            dividerColor: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
+            headerBackgroundColor: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
+            headerForegroundColor: isDarkModeEnabled == false ? Colors.white : Colors.grey,
           ),
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
-              textStyle: const TextStyle(
+              textStyle: TextStyle(
                 fontWeight: FontWeight.bold,
+                color: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
               ),
             ),
           )
@@ -135,12 +137,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return PopScope(
       canPop: false,
       child: Scaffold(
+        backgroundColor: isDarkModeEnabled == false ? Colors.white : Colors.grey,
         drawerEnableOpenDragGesture: true,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           centerTitle: true,
-          title: const Text('Registration Screen', style:TextStyle(color: kThemeBlackColor),),
-          backgroundColor: kThemeBlueColor,
+          title: Text('Registration Screen', style:TextStyle(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor),),
+          backgroundColor: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
         ),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
@@ -170,7 +173,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   const SizedBox(
                     height: 15.0,
                   ),
-                  const Text('Select your role:', style: kDarkTextSize18),
+                  Text('Select your role:', style: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -178,7 +181,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       Expanded(
                         child: ListTile(
                           contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
-                          title: const Text('Guest', style: kDarkTextSize18,),
+                          title: Text('Guest', style:  isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18,),
                           leading: Padding(
                             padding: const EdgeInsets.only(top: 2),
                             child: Radio(
@@ -197,7 +200,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       Expanded(
                         child: ListTile(
                           contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
-                          title: const Text('Staff',style: kDarkTextSize18,),
+                          title: Text('Staff',style:  isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18,),
                           leading: Padding(
                             padding: const EdgeInsets.only(top: 2),
                             child: Radio(
@@ -220,9 +223,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                   //Birthday
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom( textStyle: kBlackBoldTextSize20, alignment:Alignment.centerLeft, elevation: 0),
+                    style: ElevatedButton.styleFrom( textStyle: isDarkModeEnabled == false ? kBlackBoldTextSize18 : kBlueBoldTextSize18, alignment:Alignment.centerLeft, elevation: 0),
                     onPressed: () => _selectBirthday(context),  // Show date picker when button is pressed
-                    child: birthday == null ? const Text('Select your birthday') : Text(DateFormat('yMMMMd').format(birthday!)),
+                    child: birthday == null ? Text('Select your birthday', style:TextStyle(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor)) : Text(DateFormat('yMMMMd').format(birthday!), style:TextStyle(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor)),
                   ),
 
                   if(isGuestOrStaff == 2) ...[
@@ -231,9 +234,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                     //Joining Date
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom( textStyle: kBlackBoldTextSize20, alignment:Alignment.centerLeft, elevation: 0),
+                      style: ElevatedButton.styleFrom( textStyle: kBlackBoldTextSize18, alignment:Alignment.centerLeft, elevation: 0),
                       onPressed: () => _joiningDate(context),
-                      child: joiningDate == null ? const Text('Select your joining date') : Text(DateFormat('yMMMMd').format(joiningDate!)),
+                      child: joiningDate == null ? Text('Select your joining date', style:TextStyle(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor),) : Text(DateFormat('yMMMMd').format(joiningDate!), style:TextStyle(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor),),
                     ),
                   ],
                   const SizedBox(
@@ -292,7 +295,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     height: 24.0,
                   ),
                   RoundedButton(
-                    colour:kThemeBlueColor,
+                    colour: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
                     title:'Register',
                     onPress: (email != '' && fullname != '' && confirmPwd != '' && pwd != '') ? () {
                       if(confirmPwd == pwd) {
@@ -301,6 +304,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         commonAlertBox(context, 'WARNING!', 'Please check your password fields, the do not match.');
                       }
                     } : null,
+                    txtStyle: isDarkModeEnabled == false ? kButtonBlackTextSize24 : kButtonBlueTextSize24,
                   ),
                   const SizedBox(
                     height: 10.0,

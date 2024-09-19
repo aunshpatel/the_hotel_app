@@ -12,7 +12,7 @@ const kDarkTitleColor = Color(0XFF3A4355);
 
 const kBackgroundColor = Color(0XFF77D4FC);
 
-bool isLoggedIn = false;
+bool isLoggedIn = false, isDarkModeEnabled = false;
 
 String currentUserEmailID = '', isGuestOrStaff = '', password = '', currentUserFullName = '';
 
@@ -32,14 +32,14 @@ const kBorder = OutlineInputBorder(
   borderRadius: BorderRadius.all(Radius.circular(32.0)),
 );
 
-var kEnabledBorder = const OutlineInputBorder(
-  borderSide: BorderSide(color: kLightTitleColor, width: 1.0),
+var kEnabledBorder = OutlineInputBorder(
+  borderSide: BorderSide(color: isDarkModeEnabled == false ? kLightTitleColor : kThemeBlueColor, width: 1.0),
   borderRadius: BorderRadius.all(Radius.circular(32.0)),
 );
 
-var kFocusedBorder = const OutlineInputBorder(
-  borderSide: BorderSide(color: kThemeBlackColor, width: 2.0),
-  borderRadius: BorderRadius.all(Radius.circular(32.0)),
+var kFocusedBorder = OutlineInputBorder(
+  borderSide: BorderSide(color:  isDarkModeEnabled == false ? kLightTitleColor : kThemeBlueColor, width: 2.0),
+  borderRadius: const BorderRadius.all(Radius.circular(32.0)),
 );
 
 const kLightSemiBoldTextStyle = TextStyle(
@@ -48,16 +48,40 @@ const kLightSemiBoldTextStyle = TextStyle(
     fontWeight:FontWeight.w500
 );
 
-const kBlackBoldTextSize20 = TextStyle(
+const kDarkSemiBoldTextStyle = TextStyle(
+    color: kDarkTitleColor,
+    fontSize: 18,
+    fontWeight:FontWeight.w500
+);
+
+const kBlueBoldTextSize18 = TextStyle(
+    color: kThemeBlueColor,
+    fontSize: 18,
+    fontWeight:FontWeight.bold
+);
+
+const kBlackBoldTextSize18 = TextStyle(
     color: kThemeBlackColor,
     fontSize: 18,
     fontWeight:FontWeight.bold
 );
 
-const kButtonBlackTextSize24 = const TextStyle(
+const kButtonBlueTextSize24 = TextStyle(
+  fontSize: 24,
+  fontWeight: FontWeight.bold,
+  color: kThemeBlueColor,
+);
+
+const kButtonBlackTextSize24 = TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.bold,
   color: kThemeBlackColor,
+);
+
+const kButtonBlueTextSize18 = TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.bold,
+  color: kThemeBlueColor,
 );
 
 const kButtonBlackTextSize18 = const TextStyle(
@@ -66,9 +90,27 @@ const kButtonBlackTextSize18 = const TextStyle(
   color: kThemeBlackColor,
 );
 
+const kLightTextSize18 = TextStyle(
+    color: kThemeBlueColor,
+    fontSize: 18,
+    fontWeight:FontWeight.w500
+);
+
 const kDarkTextSize18 = TextStyle(
     color: kDarkTitleColor,
     fontSize: 18,
+    fontWeight:FontWeight.w500
+);
+
+const kBlueBoldTextSize20 = TextStyle(
+    color: kThemeBlueColor,
+    fontSize: 20,
+    fontWeight:FontWeight.w500
+);
+
+const kWhiteBoldTextSize20 = TextStyle(
+    color: Colors.white,
+    fontSize: 20,
     fontWeight:FontWeight.w500
 );
 
@@ -93,7 +135,7 @@ const kBlackTextSize17 = TextStyle(
 InputDecoration passwordInputDecoration(String labelText, bool passwordVisible, void Function() toggle){
   return InputDecoration(
     labelText: labelText,
-    labelStyle: kDarkTextSize18,
+    labelStyle:  isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18,
     contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
     border: kBorder,
     enabledBorder: kEnabledBorder,
@@ -101,7 +143,7 @@ InputDecoration passwordInputDecoration(String labelText, bool passwordVisible, 
     suffixIcon: IconButton(
       icon: Icon(
         passwordVisible ? Icons.visibility : Icons.visibility_off,
-        color: kThemeBlackColor,
+        color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor,
       ),
       onPressed: toggle,
     ),
@@ -111,13 +153,13 @@ InputDecoration passwordInputDecoration(String labelText, bool passwordVisible, 
 InputDecoration textInputDecoration(String labelText) {
   return InputDecoration(
     // hintText: hintText,
-    hintStyle: const TextStyle(color: kDarkTitleColor),
+    hintStyle: TextStyle(color: isDarkModeEnabled == false ? kDarkTitleColor : kThemeBlueColor),
     contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
     border: kBorder,
     enabledBorder: kEnabledBorder,
     focusedBorder: kFocusedBorder,
     labelText: labelText,
-    labelStyle: kDarkTextSize18,
+    labelStyle: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18,
   );
 }
 
@@ -144,14 +186,14 @@ Future<void> commonAlertBox(BuildContext context, String title, String message) 
     barrierDismissible: false,
     builder: (BuildContext context) {
       return AlertDialog.adaptive(
-        title: Text(title, style: kDarkBoldTextSize20),
-        content: Text(message, style: kLightSemiBoldTextStyle),
+        title: Text(title, style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
+        content: Text(message, style: isDarkModeEnabled == false ? kLightSemiBoldTextStyle : kDarkSemiBoldTextStyle),
         actions: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                child: const Text('OK', style: kLightSemiBoldTextStyle),
+                child: Text('OK', style: isDarkModeEnabled == false ? kLightSemiBoldTextStyle : kDarkSemiBoldTextStyle),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -170,14 +212,14 @@ Future<void> commonAlertBoxWithNavigation(BuildContext context, String title, St
     barrierDismissible: false,
     builder: (BuildContext context) {
       return AlertDialog.adaptive(
-        title: Text(title, style: kDarkBoldTextSize20),
-        content: Text(message, style: kLightSemiBoldTextStyle),
+        title: Text(title, style:  isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
+        content: Text(message, style:  isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
         actions: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                child: const Text('OK', style: kLightSemiBoldTextStyle),
+                child: Text('OK', style:  isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
                 onPressed: () {
                   Navigator.pushNamed(context, navigationTo);
                 },
