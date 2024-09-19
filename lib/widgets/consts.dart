@@ -22,12 +22,6 @@ DateTime? currentUserJoiningDate, currentUserBirthday;
 
 final auth = FirebaseAuth.instance;
 
-const kListingInputDecorationStyle = TextStyle(
-  color: kThemeBlueColor,
-  fontSize: 17,
-  fontWeight:FontWeight.w500
-);
-
 const kBorder = OutlineInputBorder(
   borderRadius: BorderRadius.all(Radius.circular(32.0)),
 );
@@ -40,6 +34,24 @@ var kEnabledBorder = OutlineInputBorder(
 var kFocusedBorder = OutlineInputBorder(
   borderSide: BorderSide(color:  isDarkModeEnabled == false ? kLightTitleColor : kThemeBlueColor, width: 2.0),
   borderRadius: const BorderRadius.all(Radius.circular(32.0)),
+);
+
+const kRedBoldRegularText = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 15,
+    color: Color(0XFF9E2121),
+);
+
+const kLightListingInputDecorationStyle = TextStyle(
+    color: kThemeBlueColor,
+    fontSize: 17,
+    fontWeight:FontWeight.w500
+);
+
+const kDarkListingInputDecorationStyle = TextStyle(
+    color: kThemeBlackColor,
+    fontSize: 17,
+    fontWeight:FontWeight.w500
 );
 
 const kLightSemiBoldTextStyle = TextStyle(
@@ -64,18 +76,6 @@ const kBlackBoldTextSize18 = TextStyle(
     color: kThemeBlackColor,
     fontSize: 18,
     fontWeight:FontWeight.bold
-);
-
-const kButtonBlueTextSize24 = TextStyle(
-  fontSize: 24,
-  fontWeight: FontWeight.bold,
-  color: kThemeBlueColor,
-);
-
-const kButtonBlackTextSize24 = TextStyle(
-  fontSize: 24,
-  fontWeight: FontWeight.bold,
-  color: kThemeBlackColor,
 );
 
 const kButtonBlueTextSize18 = TextStyle(
@@ -126,10 +126,16 @@ const kDarkBoldTextSize20 = TextStyle(
   fontWeight:FontWeight.w500
 );
 
-const kBlackTextSize17 = TextStyle(
+const kButtonBlueTextSize24 = TextStyle(
+  fontSize: 24,
+  fontWeight: FontWeight.bold,
+  color: kThemeBlueColor,
+);
+
+const kButtonBlackTextSize24 = TextStyle(
+  fontSize: 24,
+  fontWeight: FontWeight.bold,
   color: kThemeBlackColor,
-  fontSize: 17,
-  fontWeight:FontWeight.w500
 );
 
 InputDecoration passwordInputDecoration(String labelText, bool passwordVisible, void Function() toggle){
