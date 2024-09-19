@@ -12,7 +12,7 @@ class _SideDrawerState extends State<SideDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Colors.white,
+      backgroundColor: isDarkModeEnabled == false ? Colors.white : Colors.grey,
       elevation: 20,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -34,10 +34,10 @@ class _SideDrawerState extends State<SideDrawer> {
                   )
                 ),
                 child: ListTile(
-                  title: const Wrap(
+                  title: Wrap(
                     children: [
-                      Text('Dash', style:kLightBoldTextSize20),
-                      Text('board', style:kDarkBoldTextSize20,),
+                      Text('Dash', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20),
+                      Text('board', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20,),
                     ],
                   ),
                   onTap: (){
@@ -57,10 +57,10 @@ class _SideDrawerState extends State<SideDrawer> {
                   )
                 ),
                 child: ListTile(
-                  title: const Wrap(
+                  title: Wrap(
                     children: [
-                      Text('My ', style:kLightBoldTextSize20),
-                      Text('Dashboard', style:kDarkBoldTextSize20,),
+                      Text('My ', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20),
+                      Text('Dashboard', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20,),
                     ],
                   ),
                   onTap: (){
@@ -79,10 +79,10 @@ class _SideDrawerState extends State<SideDrawer> {
                 )
               ),
               child: ListTile(
-                title: const Wrap(
+                title: Wrap(
                   children: [
-                    Text('My ', style:kLightBoldTextSize20),
-                    Text('Profile', style:kDarkBoldTextSize20,),
+                    Text('My ', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20),
+                    Text('Profile', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20,),
                   ],
                 ),
                 onTap: (){

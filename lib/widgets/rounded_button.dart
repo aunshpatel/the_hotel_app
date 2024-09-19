@@ -22,7 +22,7 @@ class RoundedButton extends StatelessWidget {
           height: 60.0,
           child: Text(
             title,
-            style: kButtonBlackTextSize24
+            style: isDarkModeEnabled == false ? kButtonBlackTextSize24 : kButtonBlueTextSize24
           ),
         ),
       ),
