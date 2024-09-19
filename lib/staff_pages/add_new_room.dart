@@ -34,10 +34,10 @@ class _AddNewRoomState extends State<AddNewRoom> {
   final TextEditingController bedQuantityController = TextEditingController();
   int roomNumber = 0, maximumPeople = 0, roomSize = 0, bedQuantity = 0;
   double rentAmount = 0.0;
-  String description = '', roomType = '', bedType = 'Twin/Single', cancellationPolicy = '', roomView = '';
+  String description = '', roomType = '', cancellationPolicy = '', roomView = '';
   String? selectedCurrencyCode;
   bool uploading = false, isUploadButtonDisabled = false;
-  String roomTypeDropdownDefault = 'Regular', roomAvailabilityDropdownDefault = 'Available', smokingPolicy = 'No Smoking';
+  String  bedTypeDropdownDefault = 'Twin/Single', roomTypeDropdownDefault = 'Regular', roomAvailabilityDropdownDefault = 'Available', smokingPolicy = 'No Smoking';
   final List<String> bedTypeDropdown = ['Twin/Single', 'Full/Double', 'Queen', 'King'];
   final List<String> roomTypeDropdown = ['Regular', 'Semi-Deluxe', 'Deluxe', 'Suite'], roomAvailability = ['Available', 'Not Available', 'Out of Service'], smokingPolicyDropdown = ['No Smoking', 'Smoking Allowed'];
   final List<String> amenityOptions = ['TV', 'Swimming Pool', 'Fitness Center', 'Complimentary Breakfast', 'Complimentary Lunch', 'Complimentary Dinner', 'Complimentary Parking', 'Complimentary WiFi', 'Room Service', 'In Room Bar'];
@@ -229,7 +229,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
     } else if(urlOfImageUploaded.isEmpty) {
       commonAlertBox(context, 'WARNING!', 'Please upload atleast 1 image!');
     } else{
-      _addNewRoomFirestore.collection('room_data').add({'availability':roomAvailabilityDropdownDefault, 'availableAmenities':selectedAmenities, 'bedQuantity':bedQuantity, 'bedType':bedType, 'cancellationPolicy': cancellationPolicy, 'currencyType':selectedCurrencyCode, 'description': description, 'images':urlOfImageUploaded, 'maximumPeople':maximumPeople, 'rent':rentAmount, 'roomNumber':roomNumber, 'roomType':roomTypeDropdownDefault, 'smokingPolicy':smokingPolicy, 'viewType':roomView});
+      _addNewRoomFirestore.collection('room_data').add({'availability':roomAvailabilityDropdownDefault, 'availableAmenities':selectedAmenities, 'bedQuantity':bedQuantity, 'bedType':bedTypeDropdownDefault, 'cancellationPolicy': cancellationPolicy, 'currencyType':selectedCurrencyCode, 'description': description, 'images':urlOfImageUploaded, 'maximumPeople':maximumPeople, 'rent':rentAmount, 'roomNumber':roomNumber, 'roomType':roomTypeDropdownDefault, 'smokingPolicy':smokingPolicy, 'viewType':roomView});
       commonAlertBoxWithNavigation(context, 'SUCCESS!', 'Room added successfully.', '/staff_dashboard');
     }
   }
@@ -376,7 +376,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
                               children: [
                                 Text('Bed Type:',  style:  isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
                                 DropdownButton(
-                                  value: bedType,
+                                  value: bedTypeDropdownDefault,
                                   icon: const Icon(Icons.keyboard_arrow_down),
                                   items: bedTypeDropdown.map<DropdownMenuItem<String>>((String value) {
                                     return DropdownMenuItem<String>(
@@ -386,7 +386,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
                                   }).toList(),
                                   onChanged: (String? newValue) {
                                     setState(() {
-                                      roomTypeDropdownDefault = newValue!;
+                                      bedTypeDropdownDefault = newValue!;
                                     });
                                   },
                                 ),
