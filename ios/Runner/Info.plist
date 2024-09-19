@@ -24,6 +24,10 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Please allow access to camera in order to click photos. Camera will be active only when you select the option to 'Click Photos From Camera'.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Please allow access to photo library in order to select photos. Photo library will be active only when you select the option to 'Upload Photos From Library'.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
