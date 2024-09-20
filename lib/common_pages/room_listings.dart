@@ -258,6 +258,7 @@ class _RoomListingsState extends State<RoomListings> {
                                 children: [
                                   Image.network(item['images'][0], height: 140),
                                   const SizedBox(height: 8),
+                                  // Room Number
                                   Row(
                                     children: [
                                       const Text('Room Number:', style: kDarkUnderlineTextSize18),
@@ -265,6 +266,7 @@ class _RoomListingsState extends State<RoomListings> {
                                     ],
                                   ),
                                   const SizedBox(height: 8),
+                                  // Description
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -276,13 +278,23 @@ class _RoomListingsState extends State<RoomListings> {
                                     ],
                                   ),
                                   const SizedBox(height: 8),
+                                  // Rent
                                   Row(
                                     children: [
-                                      const Text('Rent:', style: kDarkUnderlineTextSize18),
+                                      const Text('Rent (Per Day):', style: kDarkUnderlineTextSize18),
                                       Text(' $currencyType ${item['rent']}', style: kDarkTextSize18),
                                     ],
                                   ),
                                   const SizedBox(height: 8),
+                                  // Room Size
+                                  Row(
+                                    children: [
+                                      const Text('Room Size:', style: kDarkUnderlineTextSize18),
+                                      Text(' ${item['roomSize']} sq. ft.', style: kDarkTextSize18),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  // Availability
                                   Row(
                                     children: [
                                       const Text('Availability:', style: kDarkUnderlineTextSize18),
@@ -290,6 +302,7 @@ class _RoomListingsState extends State<RoomListings> {
                                     ],
                                   ),
                                   const SizedBox(height: 8),
+                                  // Bed Details
                                   Row(
                                     children: [
                                       const Text('Bed:', style: kDarkUnderlineTextSize18),
@@ -297,6 +310,7 @@ class _RoomListingsState extends State<RoomListings> {
                                     ],
                                   ),
                                   const SizedBox(height: 8),
+                                  // Max Occupancy
                                   Row(
                                     children: [
                                       const Text('Max Occupancy:', style: kDarkUnderlineTextSize18),
@@ -304,6 +318,7 @@ class _RoomListingsState extends State<RoomListings> {
                                     ],
                                   ),
                                   const SizedBox(height: 8),
+                                  // Room Type
                                   Row(
                                     children: [
                                       const Text('Room Type:', style: kDarkUnderlineTextSize18),
@@ -311,6 +326,7 @@ class _RoomListingsState extends State<RoomListings> {
                                     ],
                                   ),
                                   const SizedBox(height: 8),
+                                  // View Type
                                   Row(
                                     children: [
                                       const Text('View Type:', style: kDarkUnderlineTextSize18),
@@ -318,6 +334,7 @@ class _RoomListingsState extends State<RoomListings> {
                                     ],
                                   ),
                                   const SizedBox(height: 8),
+                                  // Amenities
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -329,6 +346,7 @@ class _RoomListingsState extends State<RoomListings> {
                                     ],
                                   ),
                                   const SizedBox(height: 8),
+                                  // Smoking Policy
                                   Row(
                                     children: [
                                       const Text('Smoking Policy:', style: kDarkUnderlineTextSize18),
@@ -336,6 +354,7 @@ class _RoomListingsState extends State<RoomListings> {
                                     ],
                                   ),
                                   const SizedBox(height: 8),
+                                  // Cancellation Policy
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment: CrossAxisAlignment.start,
