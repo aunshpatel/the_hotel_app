@@ -45,27 +45,6 @@ class _SideDrawerState extends State<SideDrawer> {
                   },
                 ),
               ),
-              // Add New Room Page
-              Container(
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: kThemeBlackColor,
-                    )
-                  )
-                ),
-                child: ListTile(
-                  title: Wrap(
-                    children: [
-                      Text('Add New ', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20),
-                      Text('Room', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kBlueBoldTextSize20,),
-                    ],
-                  ),
-                  onTap: (){
-                    Navigator.pushNamed(context, '/add_new_room');
-                  },
-                ),
-              ),
               // Guest Management
               Container(
                 decoration: const BoxDecoration(
@@ -84,6 +63,27 @@ class _SideDrawerState extends State<SideDrawer> {
                   ),
                   onTap: (){
                     Navigator.pushNamed(context, '/guest_management_screen');
+                  },
+                ),
+              ),
+              // Add New Room Page
+              Container(
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: kThemeBlackColor,
+                    )
+                  )
+                ),
+                child: ListTile(
+                  title: Wrap(
+                    children: [
+                      Text('Add New ', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20),
+                      Text('Room', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kBlueBoldTextSize20,),
+                    ],
+                  ),
+                  onTap: (){
+                    Navigator.pushNamed(context, '/add_new_room');
                   },
                 ),
               ),
