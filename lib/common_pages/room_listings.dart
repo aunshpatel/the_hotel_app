@@ -243,6 +243,7 @@ class _RoomListingsState extends State<RoomListings> {
                     itemCount: filteredItems.length,
                     itemBuilder: (BuildContext context, int index) {
                       var item = filteredItems[index];
+                      // roomID = item.id;
                       String currencyType = item['currencyType'].split(' - ')[0];
                       List<dynamic> amenities = item['availableAmenities'] ?? [];
                       String amenitiesText = amenities.join(', ');
@@ -251,97 +252,120 @@ class _RoomListingsState extends State<RoomListings> {
                         child: Padding(
                           padding: const EdgeInsets.all(14),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              Image.network(item['images'][0], height: 140),
-                              const SizedBox(height: 8),
-                              Row(
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  const Text('Room Number:', style: kDarkUnderlineTextSize18),
-                                  Text(' ${item['roomNumber']}', style: kDarkTextSize18),
-                                ],
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text('Description:', style: kDarkUnderlineTextSize18),
-                                  Expanded(
-                                    child: Text(' ${item['description']}', style: kDarkTextSize18),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                children: [
-                                  const Text('Rent:', style: kDarkUnderlineTextSize18),
-                                  Text(' $currencyType ${item['rent']}', style: kDarkTextSize18),
-                                ],
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                children: [
-                                  const Text('Availability:', style: kDarkUnderlineTextSize18),
-                                  Text(' ${item['availability']}', style: kDarkTextSize18),
-                                ],
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                children: [
-                                  const Text('Bed:', style: kDarkUnderlineTextSize18),
-                                  Text(' ${item['bedQuantity']} Beds, ${item['bedType']} Size', style: kDarkTextSize18),
-                                ],
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                children: [
-                                  const Text('Max Occupancy:', style: kDarkUnderlineTextSize18),
-                                  Text(' ${item['maximumPeople']}', style: kDarkTextSize18),
-                                ],
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                children: [
-                                  const Text('Room Type:', style: kDarkUnderlineTextSize18),
-                                  Text(' ${item['roomType']}', style: kDarkTextSize18),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Text('View Type:', style: kDarkUnderlineTextSize18),
-                                  Text(' ${item['viewType']}', style: kDarkTextSize18),
-                                ],
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text('Amenities:', style: kDarkUnderlineTextSize18),
-                                  Expanded(
-                                    child: Text(' $amenitiesText', style: kDarkTextSize18),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                children: [
-                                  const Text('Smoking Policy:', style: kDarkUnderlineTextSize18),
-                                  Text(' ${item['smokingPolicy']}', style: kDarkTextSize18),
-                                ],
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text('Cancellation Policy:', style: kDarkUnderlineTextSize18),
-                                  Expanded(
-                                    child: Text(' ${item['cancellationPolicy']}', style: kDarkTextSize18),
+                                  Image.network(item['images'][0], height: 140),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      const Text('Room Number:', style: kDarkUnderlineTextSize18),
+                                      Text(' ${item['roomNumber']}', style: kDarkTextSize18),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      const Text('Description:', style: kDarkUnderlineTextSize18),
+                                      Expanded(
+                                        child: Text(' ${item['description']}', style: kDarkTextSize18),
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      const Text('Rent:', style: kDarkUnderlineTextSize18),
+                                      Text(' $currencyType ${item['rent']}', style: kDarkTextSize18),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      const Text('Availability:', style: kDarkUnderlineTextSize18),
+                                      Text(' ${item['availability']}', style: kDarkTextSize18),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      const Text('Bed:', style: kDarkUnderlineTextSize18),
+                                      Text(' ${item['bedQuantity']} Beds, ${item['bedType']} Size', style: kDarkTextSize18),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      const Text('Max Occupancy:', style: kDarkUnderlineTextSize18),
+                                      Text(' ${item['maximumPeople']}', style: kDarkTextSize18),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      const Text('Room Type:', style: kDarkUnderlineTextSize18),
+                                      Text(' ${item['roomType']}', style: kDarkTextSize18),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      const Text('View Type:', style: kDarkUnderlineTextSize18),
+                                      Text(' ${item['viewType']}', style: kDarkTextSize18),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      const Text('Amenities:', style: kDarkUnderlineTextSize18),
+                                      Expanded(
+                                        child: Text(' $amenitiesText', style: kDarkTextSize18),
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      const Text('Smoking Policy:', style: kDarkUnderlineTextSize18),
+                                      Text(' ${item['smokingPolicy']}', style: kDarkTextSize18),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      const Text('Cancellation Policy:', style: kDarkUnderlineTextSize18),
+                                      Expanded(
+                                        child: Text(' ${item['cancellationPolicy']}', style: kDarkTextSize18),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
+                              SizedBox(height: 20,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      roomID = item.id;
+                                      print('roomID: $roomID');
+                                      Navigator.pushNamed(context, '/room_booking');
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
+                                    ),
+                                    child: Text('Book This Room',style: isDarkModeEnabled == false ? kDarkSemiBoldTextSize18 : kBlueSemiBoldTextSize18),
+                                  )
+                                ],
+                              )
                             ],
                           ),
                         ),
