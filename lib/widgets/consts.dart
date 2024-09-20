@@ -6,6 +6,8 @@ const kThemeBlueColor = Color(0XFF77D4FC);
 
 const kThemeBlackColor = Color(0XFF000000);
 
+const kThemeRedColor = Color(0XFF9E2121);
+
 const kLightTitleColor = Color(0XFF697489);
 
 const kDarkTitleColor = Color(0XFF3A4355);
@@ -36,10 +38,16 @@ var kFocusedBorder = OutlineInputBorder(
   borderRadius: const BorderRadius.all(Radius.circular(32.0)),
 );
 
-const kRedBoldRegularText = TextStyle(
+const kRedBoldRegTxtSize15 = TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 15,
-    color: Color(0XFF9E2121),
+    color: kThemeRedColor,
+);
+
+const kWarningTextSize15 = TextStyle(
+    color: kThemeRedColor,
+    fontSize: 15,
+    fontWeight:FontWeight.w500
 );
 
 const kLightListingInputDecorationStyle = TextStyle(

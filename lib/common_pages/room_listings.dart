@@ -13,7 +13,7 @@ class RoomListings extends StatefulWidget {
 class _RoomListingsState extends State<RoomListings> {
   final ScrollController _scrollController = ScrollController();
   CollectionReference roomData = FirebaseFirestore.instance.collection('room_data');
-  String searchQuery = '', selectedAvailability = 'All', selectedRoomType = 'All';
+  String searchQuery = '', selectedAvailability = 'All', selectedRoomType = 'All', priceSortOrder = 'Ascending';
   double minRent = 0, maxRent = 1000000;
   TextEditingController minRentController = TextEditingController();
   TextEditingController maxRentController = TextEditingController();
@@ -126,6 +126,31 @@ class _RoomListingsState extends State<RoomListings> {
               ],
             ),
             const SizedBox(height: 10),
+            Column(
+              children: [
+                Row(
+                  children: [
+                    const Text('Sort by Price: ', style: kDarkTextSize18),
+                    DropdownButton<String>(
+                      value: priceSortOrder,
+                      items: <String>['Ascending', 'Descending'].map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value, style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          priceSortOrder = value!;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                const Text('Note: "Sort by Price" sorts by the amount, irrespective of currency!', style: kWarningTextSize15),
+              ],
+            ),
+            const SizedBox(height: 10),
 
             // All rooms display
             Expanded(
@@ -160,7 +185,6 @@ class _RoomListingsState extends State<RoomListings> {
                   }
 
                   final items = snapshot.data!.docs;
-
                   final filteredItems = items.where((doc) {
                     final roomNumber = doc['roomNumber'].toString();
                     final description = doc['description'].toString();
@@ -175,6 +199,16 @@ class _RoomListingsState extends State<RoomListings> {
 
                     return matchesSearchQuery && matchesAvailability && matchesRoomType && matchesRentRange;
                   }).toList();
+
+                  filteredItems.sort((a, b) {
+                    final rentA = a['rent'] as num;
+                    final rentB = b['rent'] as num;
+                    if (priceSortOrder == 'Ascending') {
+                      return rentA.compareTo(rentB);
+                    } else {
+                      return rentB.compareTo(rentA);
+                    }
+                  });
 
                   return ListView.builder(
                     controller: _scrollController,
