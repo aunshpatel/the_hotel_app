@@ -111,27 +111,6 @@ class _SideDrawerState extends State<SideDrawer> {
                 },
               ),
             ),
-            // Room Booking Page
-            Container(
-              decoration: const BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(
-                        color: kThemeBlackColor,
-                      )
-                  )
-              ),
-              child: ListTile(
-                title: Wrap(
-                  children: [
-                    Text('Book A ', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20),
-                    Text('Room', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kBlueBoldTextSize20,),
-                  ],
-                ),
-                onTap: (){
-                  Navigator.pushNamed(context, '/room_booking');
-                },
-              ),
-            ),
             // Profile Page
             Container(
               decoration: const BoxDecoration(
