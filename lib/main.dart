@@ -5,7 +5,7 @@ import 'package:the_hotel_app/common_pages/booking_history.dart';
 import 'package:the_hotel_app/common_pages/room_booking.dart';
 import 'package:the_hotel_app/guest_pages/guest_dashboard.dart';
 import 'package:the_hotel_app/common_pages/registration_screen.dart';
-import 'package:the_hotel_app/guest_pages/guest_management.dart';
+import 'package:the_hotel_app/staff_pages/guest_management.dart';
 import 'package:the_hotel_app/staff_pages/add_new_room.dart';
 import 'package:the_hotel_app/staff_pages/staff_dashboard.dart';
 import 'package:the_hotel_app/staff_pages/update_room.dart';

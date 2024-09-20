@@ -17,13 +17,13 @@ class _GuestManagementState extends State<GuestManagement> {
       drawer: SideDrawer(),
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Guest Dashboard', style:TextStyle(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor),),
+        title: Text('Guest Management', style:TextStyle(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor),),
         backgroundColor: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
         iconTheme: IconThemeData(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor),
       ),
       body: Padding(
         padding: EdgeInsets.all(20),
-        child: Text('Welcome to dashboard'),
+        child: Text('Welcome to Guest Management dashboard'),
       ),
     );
   }
