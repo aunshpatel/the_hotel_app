@@ -308,7 +308,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
                                   items: roomTypeDropdown.map<DropdownMenuItem<String>>((String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
-                                      child: Text(value, style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
+                                      child: Text(value, style: isDarkModeEnabled == false ? kDarkListingDecorationSize17 : kLightListingDecorationSize17),
                                     );
                                   }).toList(),
                                   onChanged: (String? newValue) {
@@ -381,7 +381,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
                                   items: bedTypeDropdown.map<DropdownMenuItem<String>>((String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
-                                      child: Text(value, style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
+                                      child: Text(value, style: isDarkModeEnabled == false ? kDarkListingDecorationSize17 : kLightListingDecorationSize17),
                                     );
                                   }).toList(),
                                   onChanged: (String? newValue) {
@@ -417,7 +417,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
                                 isExpanded: true,
                                 hint: Text(
                                   'Select a currency',
-                                  style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle,
+                                  style: isDarkModeEnabled == false ? kDarkListingDecorationSize17 : kLightListingDecorationSize17,
                                 ),
                                 items: currencies.map((currency) {
                                   return DropdownMenuItem<String>(
@@ -426,7 +426,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
                                       children: [
                                         ConstrainedBox(
                                           constraints: const BoxConstraints(maxWidth: 148),
-                                          child: Text('${currency.code} - ${currency.name}', overflow: TextOverflow.ellipsis, style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle,),
+                                          child: Text('${currency.code} - ${currency.name}', overflow: TextOverflow.ellipsis, style: isDarkModeEnabled == false ? kDarkListingDecorationSize17 : kLightListingDecorationSize17,),
                                         ),
                                       ],
                                     ),
@@ -457,7 +457,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
                                       decoration: InputDecoration(
                                         isDense: true,
                                         hintText: 'Enter currency details',
-                                        hintStyle: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle,
+                                        hintStyle: isDarkModeEnabled == false ? kDarkListingDecorationSize17 : kLightListingDecorationSize17,
                                         // border: OutlineInputBorder(
                                         //   borderRadius: BorderRadius.circular(8),
                                         // ),
@@ -508,7 +508,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
                                     items: roomAvailability.map<DropdownMenuItem<String>>((String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
-                                        child: Text(value, style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
+                                        child: Text(value, style: isDarkModeEnabled == false ? kDarkListingDecorationSize17 : kLightListingDecorationSize17),
                                       );
                                     }).toList(),
                                     onChanged: (String? newValue) {
@@ -568,7 +568,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
                                     items: smokingPolicyDropdown.map<DropdownMenuItem<String>>((String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
-                                        child: Text(value, style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
+                                        child: Text(value, style: isDarkModeEnabled == false ? kDarkListingDecorationSize17 : kLightListingDecorationSize17),
                                       );
                                     }).toList(),
                                     onChanged: (String? newValue) {

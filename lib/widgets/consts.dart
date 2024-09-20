@@ -50,13 +50,13 @@ const kWarningTextSize15 = TextStyle(
     fontWeight:FontWeight.w500
 );
 
-const kLightListingInputDecorationStyle = TextStyle(
+const kLightListingDecorationSize17 = TextStyle(
     color: kThemeBlueColor,
     fontSize: 17,
     fontWeight:FontWeight.w500
 );
 
-const kDarkListingInputDecorationStyle = TextStyle(
+const kDarkListingDecorationSize17 = TextStyle(
     color: kThemeBlackColor,
     fontSize: 17,
     fontWeight:FontWeight.w500

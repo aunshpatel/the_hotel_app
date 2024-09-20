@@ -112,14 +112,14 @@ class _RoomListingsState extends State<RoomListings> {
                       const SizedBox(height: 10),
                       Row(
                         children: [
-                          Text('Availability: ', style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
+                          Text('Availability: ', style: isDarkModeEnabled == false ? kDarkListingDecorationSize17 : kLightListingDecorationSize17),
                           const SizedBox(width: 15),
                           DropdownButton<String>(
                             value: selectedAvailability,
                             items: <String>['All', 'Available', 'Out of Service', 'Not Available'].map((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
-                                child: Text(value, style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
+                                child: Text(value, style: isDarkModeEnabled == false ? kDarkListingDecorationSize17 : kLightListingDecorationSize17),
                               );
                             }).toList(),
                             onChanged: (value) {
@@ -133,14 +133,14 @@ class _RoomListingsState extends State<RoomListings> {
                       const SizedBox(height: 10),
                       Row(
                         children: [
-                          Text('Room Type: ', style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
+                          Text('Room Type: ', style: isDarkModeEnabled == false ? kDarkListingDecorationSize17 : kLightListingDecorationSize17),
                           const SizedBox(width: 15),
                           DropdownButton<String>(
                             value: selectedRoomType,
                             items: <String>['All', 'Suite', 'Single', 'Double'].map((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
-                                child: Text(value, style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
+                                child: Text(value, style: isDarkModeEnabled == false ? kDarkListingDecorationSize17 : kLightListingDecorationSize17),
                               );
                             }).toList(),
                             onChanged: (value) {
@@ -154,14 +154,14 @@ class _RoomListingsState extends State<RoomListings> {
                       const SizedBox(height: 10),
                       Row(
                         children: [
-                          Text('Sort by Price: ', style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
+                          Text('Sort by Price: ', style: isDarkModeEnabled == false ? kDarkListingDecorationSize17 : kLightListingDecorationSize17),
                           const SizedBox(width: 15),
                           DropdownButton<String>(
                             value: priceSortOrder,
                             items: <String>['Ascending', 'Descending'].map((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
-                                child: Text(value, style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
+                                child: Text(value, style: isDarkModeEnabled == false ? kDarkListingDecorationSize17 : kLightListingDecorationSize17),
                               );
                             }).toList(),
                             onChanged: (value) {
