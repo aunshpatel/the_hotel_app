@@ -18,6 +18,8 @@ bool isLoggedIn = false, isDarkModeEnabled = false;
 
 String currentUserEmailID = '', isGuestOrStaff = '', password = '', currentUserFullName = '';
 
+String? roomID;
+
 DateTime? currentUserJoiningDate, currentUserBirthday;
 
 final auth = FirebaseAuth.instance;
@@ -58,6 +60,12 @@ const kDarkListingDecorationSize17 = TextStyle(
   color: kThemeBlackColor,
   fontSize: 17,
   fontWeight:FontWeight.w500
+);
+
+const kBlueSemiBoldTextSize18 = TextStyle(
+    color: kThemeBlueColor,
+    fontSize: 18,
+    fontWeight:FontWeight.w500
 );
 
 const kLightSemiBoldTextSize18 = TextStyle(
@@ -136,31 +144,37 @@ const kBoldDarkTextSize18 = TextStyle(
 const kBlueBoldTextSize20 = TextStyle(
   color: kThemeBlueColor,
   fontSize: 20,
-  fontWeight:FontWeight.w500
+  fontWeight:FontWeight.bold
 );
 
 const kWhiteBoldTextSize20 = TextStyle(
   color: Colors.white,
   fontSize: 20,
-  fontWeight:FontWeight.w500
+  fontWeight:FontWeight.bold
 );
 
 const kLightBoldTextSize20 = TextStyle(
   color: kLightTitleColor,
   fontSize: 20,
-  fontWeight:FontWeight.w500
+  fontWeight:FontWeight.bold
 );
 
 const kDarkBoldTextSize20 = TextStyle(
   color: kDarkTitleColor,
   fontSize: 20,
-  fontWeight:FontWeight.w500
+  fontWeight:FontWeight.bold
 );
 
 const kButtonBlueTextSize24 = TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.bold,
   color: kThemeBlueColor,
+);
+
+const kButtonDarkTextSize24 = TextStyle(
+  fontSize: 24,
+  fontWeight: FontWeight.bold,
+  color: kDarkTitleColor,
 );
 
 const kButtonBlackTextSize24 = TextStyle(
