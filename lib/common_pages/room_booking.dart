@@ -4,7 +4,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../data_file.dart';
-import '../uniqueEmail_confirmation.dart';
+import '../data_center.dart';
 import '../widgets/consts.dart';
 import '../widgets/phone_formats.dart';
 import '../widgets/rounded_button.dart';
