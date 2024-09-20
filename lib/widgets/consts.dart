@@ -102,6 +102,19 @@ const kDarkTextSize18 = TextStyle(
     fontWeight:FontWeight.w500
 );
 
+const kDarkUnderlineTextSize18 = TextStyle(
+  color: kDarkTitleColor,
+  fontSize: 18,
+  fontWeight:FontWeight.w500,
+  decoration: TextDecoration.underline
+);
+
+const kWhiteBoldLightTextSize18 = TextStyle(
+    color: Colors.white,
+    fontSize: 18,
+    fontWeight:FontWeight.bold
+);
+
 const kBoldLightTextSize18 = TextStyle(
     color: kThemeBlueColor,
     fontSize: 18,

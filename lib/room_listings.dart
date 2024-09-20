@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sticky_headers/sticky_headers/widget.dart';
 import 'package:the_hotel_app/widgets/consts.dart';
 import 'package:the_hotel_app/widgets/side_drawer.dart';
 import 'package:the_hotel_app/widgets/uniqueEmail_confirmation.dart';
@@ -38,7 +39,7 @@ class RoomListings extends StatefulWidget {
 //                 }
 //
 //                 if (snapshot.hasError) {
-//                   return Center(child: Text('Error: ${snapshot.error}'));
+//                   return Center(child: Text('Error: ${snapshot.error}', style: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18));
 //                 }
 //
 //                 if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
@@ -103,7 +104,7 @@ class RoomListings extends StatefulWidget {
 //                                             crossAxisAlignment: CrossAxisAlignment.start,
 //                                             children: [
 //                                               Text('Description:', style: isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldLightTextSize18),
-//                                               Text('${items[index]['description']}', style: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
+//                                               Text('${items[index]['description']}', style: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18, style: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
 //                                             ],
 //                                           ),
 //                                           const SizedBox(height: 6,),
@@ -112,7 +113,7 @@ class RoomListings extends StatefulWidget {
 //                                             crossAxisAlignment: CrossAxisAlignment.start,
 //                                             children: [
 //                                               Text('Rent (per night):', style: isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldLightTextSize18),
-//                                               Text('$currencyType ${items[index]['rent']}', style: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
+//                                               Text('$currencyType ${items[index]['rent']}', style: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18, style: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
 //                                             ],
 //                                           ),
 //                                           const SizedBox(height: 6,),
@@ -121,7 +122,7 @@ class RoomListings extends StatefulWidget {
 //                                             crossAxisAlignment: CrossAxisAlignment.start,
 //                                             children: [
 //                                               Text('Availability:', style:isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldLightTextSize18),
-//                                               Text('${items[index]['availability']}', style: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
+//                                               Text('${items[index]['availability']}', style: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18, style: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
 //                                             ],
 //                                           ),
 //                                           const SizedBox(height: 6,),
@@ -175,7 +176,7 @@ class RoomListings extends StatefulWidget {
 //                                             crossAxisAlignment: CrossAxisAlignment.start,
 //                                             children: [
 //                                               Text('Smoking Policy:', style:isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldLightTextSize18),
-//                                               Text('${items[index]['smokingPolicy']}', style:isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
+//                                               Text('${items[index]['smokingPolicy']}', style: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18, style:isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
 //                                             ],
 //                                           ),
 //                                           const SizedBox(height: 6,),
@@ -184,7 +185,7 @@ class RoomListings extends StatefulWidget {
 //                                             crossAxisAlignment: CrossAxisAlignment.start,
 //                                             children: [
 //                                               Text('Cancellation Policy:', style: isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldLightTextSize18),
-//                                               Text('${items[index]['cancellationPolicy']}', style: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
+//                                               Text('${items[index]['cancellationPolicy']}', style: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18, style: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
 //                                             ],
 //                                           ),
 //                                           const SizedBox(height: 6,),
@@ -216,14 +217,8 @@ class RoomListings extends StatefulWidget {
 class _RoomListingsState extends State<RoomListings> {
   final ScrollController _scrollController = ScrollController();
   CollectionReference roomData = FirebaseFirestore.instance.collection('room_data');
-
-  String searchQuery = '';
-  String selectedAvailability = 'All'; // Example filter
-  String selectedRoomType = 'All'; // Example filter
-
-  // Rent range filter
-  double minRent = 0;
-  double maxRent = 10000;
+  String searchQuery = '', selectedAvailability = 'All', selectedRoomType = 'All';
+  double minRent = 0, maxRent = 1000000;
   TextEditingController minRentController = TextEditingController();
   TextEditingController maxRentController = TextEditingController();
 
@@ -252,29 +247,18 @@ class _RoomListingsState extends State<RoomListings> {
         centerTitle: true,
         title: Text(
           'All Rooms',
-          style: TextStyle(
-              color: isDarkModeEnabled == false
-                  ? kThemeBlackColor
-                  : kThemeBlueColor),
+          style: TextStyle(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor),
         ),
-        backgroundColor: isDarkModeEnabled == false
-            ? kThemeBlueColor
-            : kThemeBlackColor,
-        iconTheme: IconThemeData(
-            color: isDarkModeEnabled == false
-                ? kThemeBlackColor
-                : kThemeBlueColor),
+        backgroundColor: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
+        iconTheme: IconThemeData(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            // Search bar
+            //Filters
             TextField(
-              decoration: InputDecoration(
-                labelText: 'Search by Room Number or Description',
-                border: OutlineInputBorder(),
-              ),
+              decoration: textInputDecoration('Search by Room Number'),
               onChanged: (value) {
                 setState(() {
                   searchQuery = value;
@@ -283,17 +267,13 @@ class _RoomListingsState extends State<RoomListings> {
             ),
             const SizedBox(height: 10),
 
-            // Rent range filter
             Row(
               children: [
                 Expanded(
                   child: TextField(
                     controller: minRentController,
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      labelText: 'Min Rent',
-                      border: OutlineInputBorder(),
-                    ),
+                    decoration: textInputDecoration('Min Rent'),
                     onChanged: (value) {
                       setState(() {
                         minRent = double.tryParse(value) ?? 0;
@@ -306,10 +286,7 @@ class _RoomListingsState extends State<RoomListings> {
                   child: TextField(
                     controller: maxRentController,
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      labelText: 'Max Rent',
-                      border: OutlineInputBorder(),
-                    ),
+                    decoration: textInputDecoration('Max Rent'),
                     onChanged: (value) {
                       setState(() {
                         maxRent = double.tryParse(value) ?? 10000;
@@ -321,16 +298,14 @@ class _RoomListingsState extends State<RoomListings> {
             ),
             const SizedBox(height: 10),
 
-            // Filter dropdowns
             Row(
               children: [
                 DropdownButton<String>(
                   value: selectedAvailability,
-                  items: <String>['All', 'Available', 'Out of Service', 'Not Available']
-                      .map((String value) {
+                  items: <String>['All', 'Available', 'Out of Service', 'Not Available'].map((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
-                      child: Text(value),
+                      child: Text(value, style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
                     );
                   }).toList(),
                   onChanged: (value) {
@@ -342,11 +317,10 @@ class _RoomListingsState extends State<RoomListings> {
                 const SizedBox(width: 10),
                 DropdownButton<String>(
                   value: selectedRoomType,
-                  items: <String>['All', 'Suite', 'Single', 'Double']
-                      .map((String value) {
+                  items: <String>['All', 'Suite', 'Single', 'Double'].map((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
-                      child: Text(value),
+                      child: Text(value, style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
                     );
                   }).toList(),
                   onChanged: (value) {
@@ -359,7 +333,7 @@ class _RoomListingsState extends State<RoomListings> {
             ),
             const SizedBox(height: 10),
 
-            // StreamBuilder to display rooms
+            // All rooms display
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
                 stream: roomData.snapshots(),
@@ -369,28 +343,21 @@ class _RoomListingsState extends State<RoomListings> {
                   }
 
                   if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
+                    return Center(child: Text('Error: ${snapshot.error}', style: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18));
                   }
 
                   if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                     return Center(
                       child: Column(
                         children: [
-                          Text(
-                            'No Rooms Found!',
-                            style: isDarkModeEnabled == false
-                                ? kDarkTextSize18
-                                : kLightTextSize18,
-                          ),
+                          Text('No Rooms Found!', style: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
                           MaterialButton(
                             onPressed: () {
                               Navigator.pushNamed(context, '/add_new_room');
                             },
                             child: Text(
                               'Click Here to Add New Rooms!',
-                              style: isDarkModeEnabled == false
-                                  ? kDarkTextSize18
-                                  : kLightTextSize18,
+                              style: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18,
                             ),
                           )
                         ],
@@ -400,7 +367,6 @@ class _RoomListingsState extends State<RoomListings> {
 
                   final items = snapshot.data!.docs;
 
-                  // Filter and search logic
                   final filteredItems = items.where((doc) {
                     final roomNumber = doc['roomNumber'].toString();
                     final description = doc['description'].toString();
@@ -432,18 +398,94 @@ class _RoomListingsState extends State<RoomListings> {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Image.network(item['images'][0], height: 140),
-                              const SizedBox(height: 6),
-                              Text('Room Number: ${item['roomNumber']}'),
-                              Text('Description: ${item['description']}'),
-                              Text('Rent: $currencyType ${item['rent']}'),
-                              Text('Availability: ${item['availability']}'),
-                              Text('Bed: ${item['bedQuantity']} Beds ${item['bedType']}'),
-                              Text('Max Occupancy: ${item['maximumPeople']}'),
-                              Text('Room Type: ${item['roomType']}'),
-                              Text('View Type: ${item['viewType']}'),
-                              Text('Amenities: $amenitiesText'),
-                              Text('Smoking Policy: ${item['smokingPolicy']}'),
-                              Text('Cancellation Policy: ${item['cancellationPolicy']}'),
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  const Text('Room Number:', style: kDarkUnderlineTextSize18),
+                                  Text(' ${item['roomNumber']}', style: kDarkTextSize18),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text('Description:', style: kDarkUnderlineTextSize18),
+                                  Expanded(
+                                    child: Text(' ${item['description']}', style: kDarkTextSize18),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  const Text('Rent:', style: kDarkUnderlineTextSize18),
+                                  Text(' $currencyType ${item['rent']}', style: kDarkTextSize18),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  const Text('Availability:', style: kDarkUnderlineTextSize18),
+                                  Text(' ${item['availability']}', style: kDarkTextSize18),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  const Text('Bed:', style: kDarkUnderlineTextSize18),
+                                  Text(' ${item['bedQuantity']} Beds ${item['bedType']}', style: kDarkTextSize18),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  const Text('Max Occupancy:', style: kDarkUnderlineTextSize18),
+                                  Text(' ${item['maximumPeople']}', style: kDarkTextSize18),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  const Text('Room Type:', style: kDarkUnderlineTextSize18),
+                                  Text(' ${item['roomType']}', style: kDarkTextSize18),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Text('View Type:', style: kDarkUnderlineTextSize18),
+                                  Text(' ${item['viewType']}', style: kDarkTextSize18),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text('Amenities:', style: kDarkUnderlineTextSize18),
+                                  Expanded(
+                                    child: Text(' $amenitiesText', style: kDarkTextSize18),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  const Text('Smoking Policy:', style: kDarkUnderlineTextSize18),
+                                  Text(' ${item['smokingPolicy']}', style: kDarkTextSize18),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text('Cancellation Policy:', style: kDarkUnderlineTextSize18),
+                                  Expanded(
+                                    child: Text(' ${item['cancellationPolicy']}', style: kDarkTextSize18),
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         ),
