@@ -85,10 +85,6 @@ class _MyAppState extends State<MyApp> {
               strokeWidth: 5,
             ),
           ) : MaterialApp(
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor),
-              useMaterial3: true,
-            ),
             initialRoute: isLoggedIn == false ? '/login_screen' : (isGuestOrStaff == 'staff' ? '/staff_dashboard' : '/guest_dashboard'),
             routes: {
               '/login_screen': (context) => const LoginScreen(),
