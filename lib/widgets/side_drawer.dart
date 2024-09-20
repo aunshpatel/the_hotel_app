@@ -66,6 +66,27 @@ class _SideDrawerState extends State<SideDrawer> {
                   },
                 ),
               ),
+              // Guest Management
+              Container(
+                decoration: const BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                          color: kThemeBlackColor,
+                        )
+                    )
+                ),
+                child: ListTile(
+                  title: Wrap(
+                    children: [
+                      Text('Guest ', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20),
+                      Text('Management', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kBlueBoldTextSize20,),
+                    ],
+                  ),
+                  onTap: (){
+                    Navigator.pushNamed(context, '/guest_management_screen');
+                  },
+                ),
+              ),
             ],
             if(isGuestOrStaff == 'guest') ...[
               // Dashboard Page
@@ -86,26 +107,6 @@ class _SideDrawerState extends State<SideDrawer> {
                   ),
                   onTap: (){
                     Navigator.pushNamed(context, '/guest_dashboard');
-                  },
-                ),
-              ),// Booking History
-              Container(
-                decoration: const BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                          color: kThemeBlackColor,
-                        )
-                    )
-                ),
-                child: ListTile(
-                  title: Wrap(
-                    children: [
-                      Text('Guest ', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20),
-                      Text('Management', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kBlueBoldTextSize20,),
-                    ],
-                  ),
-                  onTap: (){
-                    Navigator.pushNamed(context, '/guest_management_screen');
                   },
                 ),
               ),
