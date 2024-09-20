@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:sticky_headers/sticky_headers/widget.dart';
 import 'package:the_hotel_app/widgets/consts.dart';
 import 'package:the_hotel_app/widgets/side_drawer.dart';
 import 'package:the_hotel_app/widgets/uniqueEmail_confirmation.dart';
