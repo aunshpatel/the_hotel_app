@@ -496,8 +496,8 @@ class _RoomBookingState extends State<RoomBooking> {
               RoundedButton(
                 colour: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
                 title:'Book The Room',
-                onPress: (countryCode != null && checkInDate != null && checkOutDate != null && emailID != '' && firstName != '' && lastName != '' && phoneNumber != 0 && phoneNumber != '' && stateProvince != '' && country != '' && zipcode != 0) ? () async {
-                  Map<String, dynamic> roomData = {'countryCode': countryCode, 'checkInDate': checkInDate, 'checkOutDate':checkOutDate, 'emailID': emailID, 'firstName': firstName, 'firstName': firstName, 'lastName': lastName, 'phoneNumber': phoneNumber, 'phoneNumber': phoneNumber, 'state': stateProvince, 'country': country, 'country': country, 'roomID': roomID, 'currency':  propertyDataInfo['currencyType'], 'totalAmountDue': totalAmountDue, 'bookingDoneBy': currentUserEmailID};
+                onPress: (countryCode != null && checkInDate != null && checkOutDate != null && emailID != '' && firstName != '' && lastName != '' && phoneNumber != 0 && streetAddress != '' && stateProvince != '' && country != '' && zipcode != 0) ? () async {
+                  Map<String, dynamic> roomData = {'countryCode': countryCode, 'checkInDate': checkInDate, 'checkOutDate':checkOutDate, 'emailID': emailID, 'firstName': firstName, 'firstName': firstName, 'lastName': lastName, 'phoneNumber': phoneNumber, 'street': streetAddress, 'state': stateProvince, 'country': country, 'zipcode': zipcode, 'roomID': roomID, 'currency':  propertyDataInfo['currencyType'], 'totalAmountDue': totalAmountDue, 'bookingDoneBy': currentUserEmailID};
                   DocumentReference docRef = await _registrationScreenFirestore.collection('booking_data').add(roomData);
                   commonAlertBoxWithNavigation(context, 'SUCCESS!', 'Congratulations! Your room has been booked. Your confirmation id is: ${docRef.id}', '/all_room_listings');
                 } : () {
