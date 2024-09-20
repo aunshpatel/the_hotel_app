@@ -290,7 +290,7 @@ class _RoomListingsState extends State<RoomListings> {
                               Row(
                                 children: [
                                   const Text('Bed:', style: kDarkUnderlineTextSize18),
-                                  Text(' ${item['bedQuantity']} Beds ${item['bedType']}', style: kDarkTextSize18),
+                                  Text(' ${item['bedQuantity']} Beds, ${item['bedType']} Size', style: kDarkTextSize18),
                                 ],
                               ),
                               const SizedBox(height: 8),
