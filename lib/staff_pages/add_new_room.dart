@@ -176,7 +176,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
       builder: (BuildContext context) {
         return AlertDialog.adaptive(
           title: Text('WARNING', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
-          content: const Text('Are you sure you want to delete the image?', style: kLightSemiBoldTextStyle),
+          content: const Text('Are you sure you want to delete the image?', style: kLightSemiBoldTextSize18),
           actions: <Widget>[
             TextButton(
               child: const Text('YES', style: TextStyle(color: kDarkTitleColor),),

@@ -59,7 +59,7 @@ class _RoomListingsState extends State<RoomListings> {
                     _showFilters = !_showFilters;
                   });
                 },
-                child: Text(_showFilters ? 'Hide Filters' : 'Show Filters',style: isDarkModeEnabled == false ? kDarkSemiBoldTextStyle : kLightSemiBoldTextStyle),
+                child: Text(_showFilters ? 'Hide Filters' : 'Show Filters',style: isDarkModeEnabled == false ? kDarkSemiBoldTextSize18 : kLightSemiBoldTextSize18),
               ),
             ),
             const SizedBox(height: 10),
