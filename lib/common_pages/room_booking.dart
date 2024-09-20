@@ -4,6 +4,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../data_file.dart';
+import '../uniqueEmail_confirmation.dart';
 import '../widgets/consts.dart';
 import '../widgets/phone_formats.dart';
 import '../widgets/rounded_button.dart';
@@ -43,6 +44,46 @@ class _RoomBookingState extends State<RoomBooking> {
     super.initState();
     getProfileData();
   }
+
+  bool checkDateOverlap(DateTime selectedCheckin, DateTime selectedCheckout, List<Map<String, DateTime>> bookings,) {
+    for (var booking in bookings) {
+      DateTime existingCheckin = booking['checkinDate']!;
+      DateTime existingCheckout = booking['checkoutDate']!;
+
+      if ((selectedCheckin.isAfter(existingCheckin) && selectedCheckin.isBefore(existingCheckout)) || selectedCheckin.isAtSameMomentAs(existingCheckin) || (selectedCheckout.isAfter(existingCheckin) && selectedCheckout.isBefore(existingCheckout)) ) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  void handleBooking(BuildContext context, DateTime selectedCheckin, DateTime selectedCheckout) async {
+    List<Map<String, DateTime>> bookings = await getRoomBookings();
+
+    if (checkDateOverlap(selectedCheckin, selectedCheckout, bookings)) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog.adaptive(
+            title: Text('Date Conflict', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
+            content: Text('The selected dates overlap with an existing booking. Please choose different dates.', style: isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldLightTextSize18),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK', style: isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldLightTextSize18),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      // Proceed with booking
+    }
+  }
+
+
 
   Future<void> getProfileData() async {
     final propertyData = await getPropertyData();
@@ -96,6 +137,7 @@ class _RoomBookingState extends State<RoomBooking> {
         if(checkOutDate != null) {
           numberOfStayDays = checkOutDate!.difference(checkInDate!).inDays;
           totalAmountDue = numberOfStayDays * dailyRent;
+          handleBooking(context, checkInDate!, checkOutDate!);
         }
       });
     }
@@ -134,6 +176,7 @@ class _RoomBookingState extends State<RoomBooking> {
         checkOutDate = DateTime.utc(_selectedDate.year, _selectedDate.month, _selectedDate.day);
         numberOfStayDays = checkOutDate!.difference(checkInDate!).inDays;
         totalAmountDue = numberOfStayDays * dailyRent;
+        handleBooking(context, checkInDate!, checkOutDate!);
       });
     }
   }

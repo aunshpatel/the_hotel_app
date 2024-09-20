@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:the_hotel_app/widgets/consts.dart';
 
 Future<bool> isEmailAlreadyRegistered(String email) async {
   try {
@@ -8,4 +9,15 @@ Future<bool> isEmailAlreadyRegistered(String email) async {
     print('Error checking email: $e');
     return false;
   }
+}
+
+Future<List<Map<String, DateTime>>> getRoomBookings() async {
+  QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('booking_data').where('roomID', isEqualTo: roomID).get();
+
+  return snapshot.docs.map((doc) {
+    return {
+      'checkinDate': (doc['checkInDate'] as Timestamp).toDate(),
+      'checkoutDate': (doc['checkOutDate'] as Timestamp).toDate(),
+    };
+  }).toList();
 }
