@@ -15,6 +15,7 @@ class _RoomListingsState extends State<RoomListings> {
   CollectionReference roomData = FirebaseFirestore.instance.collection('room_data');
   String searchQuery = '', selectedAvailability = 'All', selectedRoomType = 'All', priceSortOrder = 'Ascending';
   double minRent = 0, maxRent = 1000000;
+  bool _showFilters = false;
   TextEditingController minRentController = TextEditingController();
   TextEditingController maxRentController = TextEditingController();
 
@@ -47,110 +48,137 @@ class _RoomListingsState extends State<RoomListings> {
         iconTheme: IconThemeData(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
         child: Column(
           children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    _showFilters = !_showFilters;
+                  });
+                },
+                child: Text(_showFilters ? 'Hide Filters' : 'Show Filters',style: isDarkModeEnabled == false ? kDarkSemiBoldTextStyle : kLightSemiBoldTextStyle),
+              ),
+            ),
+            const SizedBox(height: 10),
             //Filters
-            TextField(
-              decoration: textInputDecoration('Search by Room Number'),
-              onChanged: (value) {
-                setState(() {
-                  searchQuery = value;
-                });
-              },
-            ),
-            const SizedBox(height: 10),
-
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: minRentController,
-                    keyboardType: TextInputType.number,
-                    decoration: textInputDecoration('Min Rent'),
-                    onChanged: (value) {
-                      setState(() {
-                        minRent = double.tryParse(value) ?? 0;
-                      });
-                    },
+            Visibility(
+              visible: _showFilters,
+              child: Card(
+                child: Padding(
+                  padding: EdgeInsets.all(12),
+                  child: Column(
+                    children: [
+                      TextField(
+                        decoration: textInputDecoration('Search by Room Number'),
+                        onChanged: (value) {
+                          setState(() {
+                            searchQuery = value;
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              controller: minRentController,
+                              keyboardType: TextInputType.number,
+                              decoration: textInputDecoration('Min Rent'),
+                              onChanged: (value) {
+                                setState(() {
+                                  minRent = double.tryParse(value) ?? 0;
+                                });
+                              },
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: TextField(
+                              controller: maxRentController,
+                              keyboardType: TextInputType.number,
+                              decoration: textInputDecoration('Max Rent'),
+                              onChanged: (value) {
+                                setState(() {
+                                  maxRent = double.tryParse(value) ?? 10000;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Text('Availability: ', style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
+                          const SizedBox(width: 15),
+                          DropdownButton<String>(
+                            value: selectedAvailability,
+                            items: <String>['All', 'Available', 'Out of Service', 'Not Available'].map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value, style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                selectedAvailability = value!;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Text('Room Type: ', style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
+                          const SizedBox(width: 15),
+                          DropdownButton<String>(
+                            value: selectedRoomType,
+                            items: <String>['All', 'Suite', 'Single', 'Double'].map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value, style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                selectedRoomType = value!;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Text('Sort by Price: ', style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
+                          const SizedBox(width: 15),
+                          DropdownButton<String>(
+                            value: priceSortOrder,
+                            items: <String>['Ascending', 'Descending'].map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value, style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                priceSortOrder = value!;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                      const Text('Note: "Sort by Price" sorts by the rent amount value, irrespective of currency!', style: kWarningTextSize15),
+                      const SizedBox(height: 10),
+                    ],
                   ),
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: TextField(
-                    controller: maxRentController,
-                    keyboardType: TextInputType.number,
-                    decoration: textInputDecoration('Max Rent'),
-                    onChanged: (value) {
-                      setState(() {
-                        maxRent = double.tryParse(value) ?? 10000;
-                      });
-                    },
-                  ),
-                ),
-              ],
+              )
             ),
-            const SizedBox(height: 10),
-
-            Row(
-              children: [
-                DropdownButton<String>(
-                  value: selectedAvailability,
-                  items: <String>['All', 'Available', 'Out of Service', 'Not Available'].map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value, style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      selectedAvailability = value!;
-                    });
-                  },
-                ),
-                const SizedBox(width: 10),
-                DropdownButton<String>(
-                  value: selectedRoomType,
-                  items: <String>['All', 'Suite', 'Single', 'Double'].map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value, style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      selectedRoomType = value!;
-                    });
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Column(
-              children: [
-                Row(
-                  children: [
-                    const Text('Sort by Price: ', style: kDarkTextSize18),
-                    DropdownButton<String>(
-                      value: priceSortOrder,
-                      items: <String>['Ascending', 'Descending'].map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value, style: isDarkModeEnabled == false ? kDarkListingInputDecorationStyle : kLightListingInputDecorationStyle),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          priceSortOrder = value!;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-                const Text('Note: "Sort by Price" sorts by the amount, irrespective of currency!', style: kWarningTextSize15),
-              ],
-            ),
-            const SizedBox(height: 10),
 
             // All rooms display
             Expanded(
