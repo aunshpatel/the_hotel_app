@@ -45,21 +45,16 @@ class _RoomBookingState extends State<RoomBooking> {
   }
 
   Future<void> getProfileData() async {
-    print("roomID:$roomID");
     final propertyData = await getPropertyData();
     propertyDataInfo = propertyData;
-    print("propertyDataInfo:$propertyDataInfo");
     final propertyBookings = await getPropertyBookings();
     propertyBookingInfo = propertyBookings;
-    print("propertyBookingInfo:$propertyBookingInfo");
 
-    // print("propertyBookingInfo['checkInDate'].toDate():${(propertyBookingInfo[0]['checkInDate']).toDate()}");
     await Future.delayed(const Duration(seconds: 2));
     setState(() {
       isLoading = false;
     });
     for(int i=0; i < propertyDataInfo['images'].length; i++) {
-      print(propertyDataInfo['images'][i]);
       setState(() {
         imageURL.add(propertyDataInfo['images'][i]);
         dailyRent = propertyDataInfo['rent'];
@@ -101,10 +96,8 @@ class _RoomBookingState extends State<RoomBooking> {
         if(checkOutDate != null) {
           numberOfStayDays = checkOutDate!.difference(checkInDate!).inDays;
           totalAmountDue = numberOfStayDays * dailyRent;
-          print("checkin numberOfStayDays:$numberOfStayDays, totalAmountDue:$totalAmountDue");
         }
       });
-      print("checkInDate:$checkInDate");
     }
   }
 
@@ -142,7 +135,6 @@ class _RoomBookingState extends State<RoomBooking> {
         numberOfStayDays = checkOutDate!.difference(checkInDate!).inDays;
         totalAmountDue = numberOfStayDays * dailyRent;
       });
-      print("numberOfStayDays:$numberOfStayDays, totalAmountDue:$totalAmountDue");
     }
   }
 
