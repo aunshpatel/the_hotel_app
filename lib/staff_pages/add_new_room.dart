@@ -230,7 +230,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
       commonAlertBox(context, 'WARNING!', 'Please upload atleast 1 image!');
     } else{
       _addNewRoomFirestore.collection('room_data').add({'availability':roomAvailabilityDropdownDefault, 'availableAmenities':selectedAmenities, 'bedQuantity':bedQuantity, 'bedType':bedTypeDropdownDefault, 'cancellationPolicy': cancellationPolicy, 'currencyType':selectedCurrencyCode, 'description': description, 'images':urlOfImageUploaded, 'maximumPeople':maximumPeople, 'rent':rentAmount, 'roomNumber':roomNumber, 'roomSize': roomSize, 'roomType':roomTypeDropdownDefault, 'smokingPolicy':smokingPolicy, 'viewType':roomView});
-      commonAlertBoxWithNavigation(context, 'SUCCESS!', 'Room added successfully.', '/staff_dashboard');
+      commonAlertBoxWithNavigation(context, 'SUCCESS!', 'Room created successfully!', '/staff_dashboard');
     }
   }
   

@@ -264,13 +264,13 @@ Future<void> commonAlertBoxWithNavigation(BuildContext context, String title, St
     builder: (BuildContext context) {
       return AlertDialog.adaptive(
         title: Text(title, style:  isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
-        content: Text(message, style:  isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
+        content: Text(message, style:  isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldLightTextSize18),
         actions: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                child: Text('OK', style:  isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
+                child: Text('OK', style:  isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldLightTextSize18),
                 onPressed: () {
                   Navigator.pushNamed(context, navigationTo);
                 },

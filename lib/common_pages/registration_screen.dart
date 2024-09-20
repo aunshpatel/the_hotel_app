@@ -119,7 +119,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         _registrationScreenFirestore.collection('registered_user').add({'fullname':fullname, 'email':email, 'birthday':birthday, 'joiningDate':joiningDate, 'isGuestOrStaff': isGuestOrStaff == 1 ? 'guest' : 'staff'});
       }
 
-      commonAlertBoxWithNavigation(context, 'SUCCESS!', 'User registered successfully! You will be navigated to login screen.', '/login_screen');
+      commonAlertBoxWithNavigation(context, 'SUCCESS!', 'Your registtration was successful! You will now be navigated to login screen.', '/login_screen');
       print('User registered successfully');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {

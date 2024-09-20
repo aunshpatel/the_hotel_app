@@ -82,10 +82,10 @@ class _LoginScreenState extends State<LoginScreen> {
         },);
 
         if(usrData[0]['isGuestOrStaff'] == 'staff') {
-          commonAlertBoxWithNavigation(context, 'SUCCESS!', 'LOGIN SUCCESSFUL', '/staff_dashboard');
+          commonAlertBoxWithNavigation(context, 'SUCCESS!', 'You have logged in successfully!', '/staff_dashboard');
           // Navigator.pushNamed(context, '/staff_dashboard');
         } else {
-          commonAlertBoxWithNavigation(context, 'SUCCESS!', 'LOGIN SUCCESSFUL', '/guest_dashboard');
+          commonAlertBoxWithNavigation(context, 'SUCCESS!', 'You have logged in successfully!', '/guest_dashboard');
           // Navigator.pushNamed(context, '/guest_dashboard');
         }
       }
