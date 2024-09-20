@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:the_hotel_app/common_pages/booking_history.dart';
 import 'package:the_hotel_app/common_pages/room_booking.dart';
 import 'package:the_hotel_app/guest_pages/guest_dashboard.dart';
 import 'package:the_hotel_app/common_pages/registration_screen.dart';
@@ -96,6 +97,7 @@ class _MyAppState extends State<MyApp> {
               '/update_room': (context) => const UpdateRoom(),
               '/all_room_listings':(context) => const RoomListings(),
               '/room_booking':(context) => const RoomBooking(),
+              '/booking_history':(context) => const BookingHistory(),
             },
           );
         }

@@ -111,6 +111,27 @@ class _SideDrawerState extends State<SideDrawer> {
                 },
               ),
             ),
+            // Booking History
+            Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: kThemeBlackColor,
+                  )
+                )
+              ),
+              child: ListTile(
+                title: Wrap(
+                  children: [
+                    Text('Booking ', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20),
+                    Text('History', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kBlueBoldTextSize20,),
+                  ],
+                ),
+                onTap: (){
+                  Navigator.pushNamed(context, '/booking_history');
+                },
+              ),
+            ),
             // Profile Page
             Container(
               decoration: const BoxDecoration(
