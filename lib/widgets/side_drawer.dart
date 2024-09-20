@@ -18,13 +18,13 @@ class _SideDrawerState extends State<SideDrawer> {
         padding: const EdgeInsets.all(10.0),
         child: ListView(
           children: [
-            //Image
+            // Image
             SizedBox(
               height: 170,
               child: Image.asset('images/the-hotel-app-high-resolution-logo.jpeg')
             ),
             if(isGuestOrStaff == 'staff') ...[
-              //Dashboard Page
+              // Dashboard Page
               Container(
                 decoration: const BoxDecoration(
                   border: Border(
@@ -45,6 +45,7 @@ class _SideDrawerState extends State<SideDrawer> {
                   },
                 ),
               ),
+              // Add New Room Page
               Container(
                 decoration: const BoxDecoration(
                   border: Border(
@@ -67,7 +68,7 @@ class _SideDrawerState extends State<SideDrawer> {
               ),
             ],
             if(isGuestOrStaff == 'guest') ...[
-              //Dashboard Page
+              // Dashboard Page
               Container(
                 decoration: const BoxDecoration(
                   border: Border(
@@ -89,7 +90,7 @@ class _SideDrawerState extends State<SideDrawer> {
                 ),
               ),
             ],
-            //Rooms Page
+            // Rooms Page
             Container(
               decoration: const BoxDecoration(
                   border: Border(
@@ -110,7 +111,28 @@ class _SideDrawerState extends State<SideDrawer> {
                 },
               ),
             ),
-            //Profile Page
+            // Room Booking Page
+            Container(
+              decoration: const BoxDecoration(
+                  border: Border(
+                      bottom: BorderSide(
+                        color: kThemeBlackColor,
+                      )
+                  )
+              ),
+              child: ListTile(
+                title: Wrap(
+                  children: [
+                    Text('Book A ', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20),
+                    Text('Room', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kBlueBoldTextSize20,),
+                  ],
+                ),
+                onTap: (){
+                  Navigator.pushNamed(context, '/room_booking');
+                },
+              ),
+            ),
+            // Profile Page
             Container(
               decoration: const BoxDecoration(
                 border: Border(
