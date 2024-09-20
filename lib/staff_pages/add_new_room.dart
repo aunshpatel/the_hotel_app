@@ -661,7 +661,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
                                                     onPressed: () => {
                                                       deletePhoto(urlOfImageUploaded[index], index)
                                                     },
-                                                    child: const Text('Delete Image',style: kRedBoldRegularText),
+                                                    child: const Text('Delete Image',style: kRedBoldRegTxtSize15),
                                                   ),
                                                 ],
                                               )
