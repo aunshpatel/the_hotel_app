@@ -21,3 +21,38 @@ Future<List<Map<String, DateTime>>> getRoomBookings() async {
     };
   }).toList();
 }
+
+// Future<List<Map<String, dynamic>>> getUserBookings() async {
+//   QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('booking_data').where('bookingDoneBy', isEqualTo: currentUserEmailID).get();
+//
+//   return snapshot.docs.map((doc) {
+//     return {
+//       'checkinDate': (doc['checkInDate'] as Timestamp).toDate(),
+//       'checkoutDate': (doc['checkOutDate'] as Timestamp).toDate(),
+//       'roomID': doc['roomID'],
+//     };
+//   }).toList();
+// }
+
+Future<List<Map<String, dynamic>>> getUserBookingsWithRoomData() async {
+  QuerySnapshot bookingsSnapshot = await FirebaseFirestore.instance.collection('booking_data').where('bookingDoneBy', isEqualTo: currentUserEmailID).get();
+
+  List<Map<String, dynamic>> bookings = bookingsSnapshot.docs.map((doc) {
+    return {
+      'checkinDate': (doc['checkInDate'] as Timestamp).toDate(),
+      'checkoutDate': (doc['checkOutDate'] as Timestamp).toDate(),
+      'roomID': doc['roomID'], 
+    };
+  }).toList();
+  
+  for (var booking in bookings) {
+    DocumentSnapshot roomSnapshot = await FirebaseFirestore.instance.collection('room_data').doc(booking['roomID']).get();
+
+    if (roomSnapshot.exists) {
+      booking['roomData'] = roomSnapshot.data();
+    }
+  }
+
+  return bookings;
+}
+
