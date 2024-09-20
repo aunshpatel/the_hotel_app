@@ -92,7 +92,7 @@ class _RoomBookingState extends State<RoomBooking> {
     );
     if (pickedDate != null && pickedDate != checkInDate) {
       setState(() {
-        checkInDate = pickedDate;
+        checkInDate =  DateTime.utc(pickedDate.year, pickedDate.month, pickedDate.day);
         if(checkOutDate != null) {
           numberOfStayDays = checkOutDate!.difference(checkInDate!).inDays;
           totalAmountDue = numberOfStayDays * dailyRent;
@@ -131,7 +131,7 @@ class _RoomBookingState extends State<RoomBooking> {
     );
     if (_selectedDate != null && _selectedDate != checkOutDate) {
       setState(() {
-        checkOutDate = _selectedDate;
+        checkOutDate = DateTime.utc(_selectedDate.year, _selectedDate.month, _selectedDate.day);
         numberOfStayDays = checkOutDate!.difference(checkInDate!).inDays;
         totalAmountDue = numberOfStayDays * dailyRent;
       });
