@@ -215,7 +215,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
     });
   }
 
-  _addNewRoomButton() {
+  _addNewRoomButton() async{
     if(description == '' &&  cancellationPolicy == '' &&  roomView == '' &&  smokingPolicy == '' &&   roomNumber == 0 &&  maximumPeople == 0  &&  roomSize == 0 &&  bedQuantity ==  0 && urlOfImageUploaded.isEmpty) {
       commonAlertBox(context, 'WARNING!', 'Please fill out all fields!');
     } else if(description == '') {
@@ -229,7 +229,11 @@ class _AddNewRoomState extends State<AddNewRoom> {
     } else if(urlOfImageUploaded.isEmpty) {
       commonAlertBox(context, 'WARNING!', 'Please upload atleast 1 image!');
     } else{
-      _addNewRoomFirestore.collection('room_data').add({'availability':roomAvailabilityDropdownDefault, 'availableAmenities':selectedAmenities, 'bedQuantity':bedQuantity, 'bedType':bedTypeDropdownDefault, 'cancellationPolicy': cancellationPolicy, 'currencyType':selectedCurrencyCode, 'description': description, 'images':urlOfImageUploaded, 'maximumPeople':maximumPeople, 'rent':rentAmount, 'roomNumber':roomNumber, 'roomSize': roomSize, 'roomType':roomTypeDropdownDefault, 'smokingPolicy':smokingPolicy, 'viewType':roomView});
+      DocumentReference docRef = await _addNewRoomFirestore.collection('room_data').add({'availability':roomAvailabilityDropdownDefault, 'availableAmenities':selectedAmenities, 'bedQuantity':bedQuantity, 'bedType':bedTypeDropdownDefault, 'cancellationPolicy': cancellationPolicy, 'currencyType':selectedCurrencyCode, 'description': description, 'images':urlOfImageUploaded, 'maximumPeople':maximumPeople, 'rent':rentAmount, 'roomNumber':roomNumber, 'roomSize': roomSize, 'roomType':roomTypeDropdownDefault, 'smokingPolicy':smokingPolicy, 'viewType':roomView});
+      String documentId = docRef.id;
+      await docRef.update({
+        'documentId': documentId,
+      });
       commonAlertBoxWithNavigation(context, 'SUCCESS!', 'Room created successfully!', '/staff_dashboard');
     }
   }
