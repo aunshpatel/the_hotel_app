@@ -28,6 +28,8 @@ class _RoomBookingState extends State<RoomBooking> {
   double grandTotal = 0.0, totalAmountDue = 0.0, dailyRent = 0.0;
   bool isLoading = true;
   String? countryCode;
+  String  paymentStatusDefault = 'Full Payment';
+  final List<String> paymentStatus = ['Full Payment', 'Partial Payment', 'Payment Pending'];
   final TextEditingController countryCodeController = TextEditingController();
   TextEditingController emailIDController = TextEditingController();
   TextEditingController firstNameController = TextEditingController();
@@ -492,12 +494,33 @@ class _RoomBookingState extends State<RoomBooking> {
                 '${propertyDataInfo['currencyType'].split(' - ')[0]} $totalAmountDue',
                 style: isDarkModeEnabled == false ? kButtonDarkTextSize24 : kButtonBlueTextSize24,
               ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Text('Payment Status:',  style:  isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
+                  DropdownButton(
+                    value: paymentStatusDefault,
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                    items: paymentStatus.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value, style: isDarkModeEnabled == false ? kDarkListingDecorationSize17 : kLightListingDecorationSize17),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        paymentStatusDefault = newValue!;
+                      });
+                    },
+                  ),
+                ],
+              ),
               const SizedBox(height: 15),
               RoundedButton(
                 colour: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
                 title:'Book The Room',
                 onPress: (countryCode != null && checkInDate != null && checkOutDate != null && emailID != '' && firstName != '' && lastName != '' && phoneNumber != 0 && streetAddress != '' && stateProvince != '' && country != '' && zipcode != 0) ? () async {
-                  Map<String, dynamic> roomData = {'countryCode': countryCode, 'checkInDate': checkInDate, 'checkOutDate':checkOutDate, 'emailID': emailID, 'firstName': firstName, 'firstName': firstName, 'lastName': lastName, 'phoneNumber': phoneNumber, 'street': streetAddress, 'state': stateProvince, 'country': country, 'zipcode': zipcode, 'roomID': roomID, 'currency':  propertyDataInfo['currencyType'], 'totalAmountDue': totalAmountDue, 'bookingDoneBy': currentUserEmailID};
+                  Map<String, dynamic> roomData = {'countryCode': countryCode, 'checkInDate': checkInDate, 'checkOutDate':checkOutDate, 'emailID': emailID, 'firstName': firstName, 'firstName': firstName, 'lastName': lastName, 'phoneNumber': phoneNumber, 'street': streetAddress, 'state': stateProvince, 'country': country, 'zipcode': zipcode, 'paymentStatus':paymentStatusDefault, 'roomID': roomID, 'currency': propertyDataInfo['currencyType'],'isCheckedIn': false, 'isCheckedOut': false, 'totalAmountDue': totalAmountDue, 'stayDuration': numberOfStayDays, 'bookingDoneBy': currentUserEmailID};
                   DocumentReference docRef = await _registrationScreenFirestore.collection('booking_data').add(roomData);
                   commonAlertBoxWithNavigation(context, 'SUCCESS!', 'Congratulations! Your room has been booked. Your confirmation id is: ${docRef.id}', '/all_room_listings');
                 } : () {
