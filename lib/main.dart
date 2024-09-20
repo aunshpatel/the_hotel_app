@@ -5,6 +5,7 @@ import 'package:the_hotel_app/common_pages/booking_history.dart';
 import 'package:the_hotel_app/common_pages/room_booking.dart';
 import 'package:the_hotel_app/guest_pages/guest_dashboard.dart';
 import 'package:the_hotel_app/common_pages/registration_screen.dart';
+import 'package:the_hotel_app/guest_pages/guest_management.dart';
 import 'package:the_hotel_app/staff_pages/add_new_room.dart';
 import 'package:the_hotel_app/staff_pages/staff_dashboard.dart';
 import 'package:the_hotel_app/staff_pages/update_room.dart';
@@ -98,6 +99,7 @@ class _MyAppState extends State<MyApp> {
               '/all_room_listings':(context) => const RoomListings(),
               '/room_booking':(context) => const RoomBooking(),
               '/booking_history':(context) => const BookingHistory(),
+              '/guest_management_screen':(context) => const GuestManagement(),
             },
           );
         }
