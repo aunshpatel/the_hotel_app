@@ -4,7 +4,7 @@ import 'package:the_hotel_app/widgets/consts.dart';
 import 'package:the_hotel_app/widgets/rounded_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'data_file.dart';
+import '../data_file.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

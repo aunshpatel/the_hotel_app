@@ -4,8 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_hotel_app/widgets/rounded_button.dart';
 import 'package:the_hotel_app/widgets/side_drawer.dart';
 
-import 'data_file.dart';
-import 'widgets/consts.dart';
+import '../data_file.dart';
+import '../widgets/consts.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
