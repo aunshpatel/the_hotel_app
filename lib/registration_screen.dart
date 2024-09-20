@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:the_hotel_app/widgets/consts.dart';
 import 'package:the_hotel_app/widgets/rounded_button.dart';
 import 'package:intl/intl.dart';
-import 'package:the_hotel_app/widgets/uniqueEmail_confirmation.dart';
+import 'package:the_hotel_app/uniqueEmail_confirmation.dart';
 
 final _registrationScreenFirestore = FirebaseFirestore.instance;
 
