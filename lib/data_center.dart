@@ -30,6 +30,9 @@ Future<List<Map<String, dynamic>>> getUserBookingsWithRoomData() async {
       'checkinDate': (doc['checkInDate'] as Timestamp).toDate(),
       'checkoutDate': (doc['checkOutDate'] as Timestamp).toDate(),
       'roomID': doc['roomID'], 
+      'paymentStatus': doc['paymentStatus'],
+      'isCheckedIn': doc['isCheckedIn'],
+      'isCheckedOut': doc['isCheckedOut'],
     };
   }).toList();
   
