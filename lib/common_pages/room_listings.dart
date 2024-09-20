@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:the_hotel_app/data_center.dart';
 import 'package:the_hotel_app/widgets/consts.dart';
 import 'package:the_hotel_app/widgets/side_drawer.dart';
 
@@ -12,7 +13,7 @@ class RoomListings extends StatefulWidget {
 
 class _RoomListingsState extends State<RoomListings> {
   final ScrollController _scrollController = ScrollController();
-  CollectionReference roomData = FirebaseFirestore.instance.collection('room_data');
+  Future<List<QueryDocumentSnapshot<Object?>>> roomData = getRoomData();
   String searchQuery = '', selectedAvailability = 'All', selectedRoomType = 'All', priceSortOrder = 'Ascending';
   double minRent = 0, maxRent = 1000000;
   bool _showFilters = false;
@@ -182,9 +183,9 @@ class _RoomListingsState extends State<RoomListings> {
 
             // All rooms display
             Expanded(
-              child: StreamBuilder<QuerySnapshot>(
-                stream: roomData.snapshots(),
-                builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              child:FutureBuilder<List<QueryDocumentSnapshot<Object?>>>(
+                future: roomData,
+                builder: (BuildContext context, AsyncSnapshot<List<QueryDocumentSnapshot<Object?>>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   }
@@ -193,7 +194,7 @@ class _RoomListingsState extends State<RoomListings> {
                     return Center(child: Text('Error: ${snapshot.error}', style: isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18));
                   }
 
-                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
                     return Center(
                       child: Column(
                         children: [
@@ -212,7 +213,7 @@ class _RoomListingsState extends State<RoomListings> {
                     );
                   }
 
-                  final items = snapshot.data!.docs;
+                  final items = snapshot.data!;
                   final filteredItems = items.where((doc) {
                     final roomNumber = doc['roomNumber'].toString();
                     final description = doc['description'].toString();

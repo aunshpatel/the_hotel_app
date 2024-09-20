@@ -11,6 +11,12 @@ Future<bool> isEmailAlreadyRegistered(String email) async {
   }
 }
 
+Future<List<QueryDocumentSnapshot<Object?>>> getRoomData() async {
+  QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('room_data').where('availability', isEqualTo: 'Available').get();
+
+  return snapshot.docs.toList();
+}
+
 Future<List<Map<String, DateTime>>> getRoomBookings() async {
   QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('booking_data').where('roomID', isEqualTo: roomID).get();
 
@@ -24,7 +30,6 @@ Future<List<Map<String, DateTime>>> getRoomBookings() async {
 
 Future<List<Map<String, dynamic>>> getUserBookingsWithRoomData() async {
   QuerySnapshot bookingsSnapshot = await FirebaseFirestore.instance.collection('booking_data').where('bookingDoneBy', isEqualTo: currentUserEmailID).get();
-
   List<Map<String, dynamic>> bookings = bookingsSnapshot.docs.map((doc) {
     return {
       'checkinDate': (doc['checkInDate'] as Timestamp).toDate(),
@@ -35,15 +40,11 @@ Future<List<Map<String, dynamic>>> getUserBookingsWithRoomData() async {
       'isCheckedOut': doc['isCheckedOut'],
     };
   }).toList();
-  
   for (var booking in bookings) {
     DocumentSnapshot roomSnapshot = await FirebaseFirestore.instance.collection('room_data').doc(booking['roomID']).get();
-
     if (roomSnapshot.exists) {
       booking['roomData'] = roomSnapshot.data();
     }
   }
-
   return bookings;
 }
-
