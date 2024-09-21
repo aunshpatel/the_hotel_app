@@ -47,11 +47,13 @@ class _BookingHistoryState extends State<BookingHistory> {
           future: bookingsWithRoomsFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator.adaptive(
-                valueColor: AlwaysStoppedAnimation<Color>(isDarkModeEnabled == false ? kDarkTitleColor : kLightTitleColor),
-                backgroundColor: isDarkModeEnabled == false ? kLightTitleColor : kDarkTitleColor,
-                strokeWidth: 5,
-              ));
+              return Center(
+                child: CircularProgressIndicator.adaptive(
+                  valueColor: AlwaysStoppedAnimation<Color>(isDarkModeEnabled == false ? kDarkTitleColor : kLightTitleColor),
+                  backgroundColor: isDarkModeEnabled == false ? kLightTitleColor : kDarkTitleColor,
+                  strokeWidth: 5,
+                )
+              );
             }
             if (!snapshot.hasData || snapshot.data!.isEmpty) {
               return Center(child: Text('No Bookings Available', style: isDarkModeEnabled == false ? kButtonDarkTextSize24 : kButtonBlueTextSize24,));
@@ -91,48 +93,53 @@ class BookingsList extends StatelessWidget {
         itemBuilder: (context, index) {
           var booking = bookings[index];
           var roomData = booking['roomData'];
-          return Card(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: CarouselSlider(
-                      options: CarouselOptions(
-                        autoPlay: roomData['images'].length == 1 ? false : true,
-                        enableInfiniteScroll: roomData['images'].length == 1 ? false : true,
-                        enlargeCenterPage: true,
-                      ),
-                      items: roomData['images'].map<Widget>((img) {
-                        return SizedBox(
-                          child: Image.network(img, height:200, fit: BoxFit.contain),
-                        );
-                      }).toList(),
+          return Column(
+            children: [
+              Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: CarouselSlider(
+                            options: CarouselOptions(
+                              autoPlay: roomData['images'].length == 1 ? false : true,
+                              enableInfiniteScroll: roomData['images'].length == 1 ? false : true,
+                              enlargeCenterPage: true,
+                            ),
+                            items: roomData['images'].map<Widget>((img) {
+                              return SizedBox(
+                                child: Image.network(img, height:200, fit: BoxFit.contain),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                        Text('Room ${roomData['roomNumber']}', style: kDarkBoldTextSize20),
+                        const SizedBox(height:10),
+                        Text('Room Type: ${roomData['roomType']}', style: kBoldDarkTextSize18,),
+                        const SizedBox(height:10),
+                        Text('Rent: ${roomData['currencyType'].split(' - ')[0]} ${roomData['rent']}', style: kBoldDarkTextSize18,),
+                        const SizedBox(height:10),
+                        Text('Payment Status: ${booking['paymentStatus']}', style: kBoldDarkTextSize18,),
+                        const SizedBox(height:10),
+                        Text('Check In Date: ${DateFormat('yMMMMd').format(booking['checkinDate'])}', style: kBoldDarkTextSize18,),
+                        const SizedBox(height:10),
+                        Text('Check In Status: ${booking['isCheckedIn'] == true ? 'Checked In' : 'Not Checked In'}', style: kBoldDarkTextSize18,),
+                        const SizedBox(height:10),
+                        Text('Check Out Date: ${DateFormat('yMMMMd').format(booking['checkoutDate'])}', style: kBoldDarkTextSize18,),
+                        const SizedBox(height:10),
+                        Text('Check Out Status: ${booking['isCheckedOut'] == true ? 'Checked Out' : 'Not Checked Out'}', style: kBoldDarkTextSize18,),
+                        const SizedBox(height:10),
+                        Text('Description: ${roomData['description']}', style: kBoldDarkTextSize18,),
+                      ],
                     ),
-                  ),
-                  const SizedBox(height: 15),
-                  Text('Room ${roomData['roomNumber']}', style: kDarkBoldTextSize20),
-                  const SizedBox(height:10),
-                  Text('Room Type: ${roomData['roomType']}', style: kBoldDarkTextSize18,),
-                  const SizedBox(height:10),
-                  Text('Rent: ${roomData['currencyType'].split(' - ')[0]} ${roomData['rent']}', style: kBoldDarkTextSize18,),
-                  const SizedBox(height:10),
-                  Text('Payment Status: ${booking['paymentStatus']}', style: kBoldDarkTextSize18,),
-                  const SizedBox(height:10),
-                  Text('Check In Date: ${DateFormat('yMMMMd').format(booking['checkinDate'])}', style: kBoldDarkTextSize18,),
-                  const SizedBox(height:10),
-                  Text('Check In Status: ${booking['isCheckedIn'] == true ? 'Checked In' : 'Not Checked In'}', style: kBoldDarkTextSize18,),
-                  const SizedBox(height:10),
-                  Text('Check Out Date: ${DateFormat('yMMMMd').format(booking['checkoutDate'])}', style: kBoldDarkTextSize18,),
-                  const SizedBox(height:10),
-                  Text('Check Out Status: ${booking['isCheckedOut'] == true ? 'Checked Out' : 'Not Checked Out'}', style: kBoldDarkTextSize18,),
-                  const SizedBox(height:10),
-                  Text('Description: ${roomData['description']}', style: kBoldDarkTextSize18,),
-                ],
+                  )
               ),
-            )
+              const SizedBox(height: 20,)
+            ],
           );
         },
       ),
