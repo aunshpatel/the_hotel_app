@@ -138,7 +138,6 @@ class _GuestManagementState extends State<GuestManagement> {
                     return ListView.builder(
                       itemCount: bookings.length,
                       itemBuilder: (context, index) {
-                        // Access each booking's data (Map<String, dynamic>)
                         Map<String, dynamic> booking = bookings[index];
 
                         return Card(
@@ -209,7 +208,6 @@ class _GuestManagementState extends State<GuestManagement> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         (booking['isCheckedOut'] == false && booking['checkinDate'].isAtSameMomentAs(DateTime.now())) || (booking['isCheckedOut'] == false && booking['checkinDate'].isBefore(DateTime.now())) || (booking['isCheckedOut'] == false && booking['checkinDate'].isAtSameMomentAs(DateTime.now())) ?
-                                        // (booking['checkinDate'].isAtSameMomentAs(DateTime.now()) && !booking['isCheckedIn']) || (booking['checkinDate'].isBefore(DateTime.now()) && !booking['isCheckedIn']) ?
                                         MaterialButton(
                                           onPressed: () {
                                             bool boolCheckedIn = false;
@@ -224,7 +222,6 @@ class _GuestManagementState extends State<GuestManagement> {
                                           child: Text('Check In',style: isDarkModeEnabled == false ? kWhiteBoldTextSize20 : kBlueBoldTextSize20,),
                                         ) : SizedBox(),
 
-                                        // (booking['checkoutDate'].isAtSameMomentAs(DateTime.now()) && !booking['checkoutDate']) || (booking['checkoutDate'].isAtSameMomentAs(DateTime.now()) && !booking['checkoutDate']) || (booking['checkoutDate'].isBefore(DateTime.now()) && !booking['checkoutDate'])  ?
                                         (booking['isCheckedIn'] == true && booking['checkinDate'].isAtSameMomentAs(DateTime.now()) && booking['checkoutDate'].isAfter(DateTime.now())) || (booking['isCheckedIn'] == true && booking['checkinDate'].isBefore(DateTime.now()) && booking['checkoutDate'].isAfter(DateTime.now())) || (booking['isCheckedIn'] == true && booking['checkinDate'].isBefore(DateTime.now()) && booking['checkoutDate'].isAtSameMomentAs(DateTime.now())) ?
                                         MaterialButton(
                                           onPressed: () {
@@ -250,8 +247,7 @@ class _GuestManagementState extends State<GuestManagement> {
                       },
                     );
                   } else {
-                    // If no data, show a message indicating no bookings found
-                    return Center(child: Text('No bookings found.'));
+                    return Center(child: Text('No bookings found.', style: isDarkModeEnabled == false ? kWhiteBoldTextSize20 : kBlueBoldTextSize20,));
                   }
                 },
               ),
