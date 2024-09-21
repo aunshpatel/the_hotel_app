@@ -234,7 +234,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 200,
+                    // width: 200,
                     decoration: BoxDecoration(
                       color:  isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
                       borderRadius: BorderRadius.circular(30.0),
@@ -255,7 +255,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             prefs.setBool('isDarkModeEnabled', isDarkModeEnabled);
                           },);
                         },
-                        child: isDarkModeEnabled == false ? Text('Enable Dark Mode',  style: kButtonBlackTextSize18) : Text('Enable Light Mode',  style:  isDarkModeEnabled == false ? kButtonBlackTextSize18 : kButtonBlueTextSize18),
+                        child: Center(
+                          child: isDarkModeEnabled == false ? Text('Enable Dark Mode',  style: kButtonBlackTextSize18) : Text('Enable Light Mode',  style:  isDarkModeEnabled == false ? kButtonBlackTextSize18 : kButtonBlueTextSize18),
+                        ),
                       ),
                     ),
                   ),

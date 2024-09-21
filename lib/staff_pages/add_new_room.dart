@@ -631,7 +631,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
                               onPressed: isUploadButtonDisabled == true ? () => {
                                 commonAlertBox(context, 'WARNING', 'You can not upload more than 6 images.')
                               } : photoSelector,
-                              color:  isDarkModeEnabled == false ? kLightTitleColor : kDarkTitleColor,
+                              color:  isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
                               child: Text('Upload Photos',style: isDarkModeEnabled == false ? kWhiteBoldTextSize20 : kBlueBoldTextSize20,),
                             ),
 
@@ -686,7 +686,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
                     height: 17,
                   ),
                   RoundedButton(
-                    colour:kDarkTitleColor,
+                    colour: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
                     title:'Add New Room',
                     onPress:_addNewRoomButton,
                     txtStyle: isDarkModeEnabled == false ? kButtonBlackTextSize24 : kButtonBlueTextSize24,
