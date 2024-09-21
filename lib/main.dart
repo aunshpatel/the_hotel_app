@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_hotel_app/common_pages/booking_history.dart';
 import 'package:the_hotel_app/common_pages/room_booking.dart';
-import 'package:the_hotel_app/guest_pages/guest_dashboard.dart';
 import 'package:the_hotel_app/common_pages/registration_screen.dart';
 import 'package:the_hotel_app/staff_pages/guest_management.dart';
 import 'package:the_hotel_app/staff_pages/add_new_room.dart';
-import 'package:the_hotel_app/staff_pages/staff_dashboard.dart';
 import 'package:the_hotel_app/widgets/consts.dart';
 import 'common_pages/profile_page.dart';
 import 'common_pages/room_listings.dart';
@@ -86,12 +84,10 @@ class _MyAppState extends State<MyApp> {
               strokeWidth: 5,
             ),
           ) : MaterialApp(
-            initialRoute: isLoggedIn == false ? '/login_screen' : (isGuestOrStaff == 'staff' ? '/staff_dashboard' : '/guest_dashboard'),
+            initialRoute: isLoggedIn == false ? '/login_screen' : '/all_room_listings',
             routes: {
               '/login_screen': (context) => const LoginScreen(),
               '/registration_screen': (context) => const RegistrationScreen(),
-              '/staff_dashboard': (context) => const StaffDashboard(),
-              '/guest_dashboard': (context) => const GuestDashboard(),
               '/profile_page': (context) => const ProfilePage(),
               '/add_new_room': (context) => const AddNewRoom(),
               '/all_room_listings':(context) => const RoomListings(),

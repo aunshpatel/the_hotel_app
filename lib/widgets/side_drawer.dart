@@ -23,28 +23,28 @@ class _SideDrawerState extends State<SideDrawer> {
               height: 170,
               child: Image.asset('images/the-hotel-app-high-resolution-logo.jpeg')
             ),
-            if(isGuestOrStaff == 'staff') ...[
-              // Dashboard Page
-              Container(
-                decoration: const BoxDecoration(
+            // Rooms Page
+            Container(
+              decoration: const BoxDecoration(
                   border: Border(
-                    bottom: BorderSide(
-                      color: kThemeBlackColor,
-                    )
+                      bottom: BorderSide(
+                        color: kThemeBlackColor,
+                      )
                   )
-                ),
-                child: ListTile(
-                  title: Wrap(
-                    children: [
-                      Text('Dash', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20),
-                      Text('board', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kBlueBoldTextSize20,),
-                    ],
-                  ),
-                  onTap: (){
-                    Navigator.pushNamed(context, '/staff_dashboard');
-                  },
-                ),
               ),
+              child: ListTile(
+                title: Wrap(
+                  children: [
+                    Text('All ', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20),
+                    Text('Rooms', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kBlueBoldTextSize20,),
+                  ],
+                ),
+                onTap: (){
+                  Navigator.pushNamed(context, '/all_room_listings');
+                },
+              ),
+            ),
+            if(isGuestOrStaff == 'staff') ...[
               // Guest Management
               Container(
                 decoration: const BoxDecoration(
@@ -88,50 +88,6 @@ class _SideDrawerState extends State<SideDrawer> {
                 ),
               ),
             ],
-            if(isGuestOrStaff == 'guest') ...[
-              // Dashboard Page
-              Container(
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: kThemeBlackColor,
-                    )
-                  )
-                ),
-                child: ListTile(
-                  title: Wrap(
-                    children: [
-                      Text('My ', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20),
-                      Text('Dashboard', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kBlueBoldTextSize20,),
-                    ],
-                  ),
-                  onTap: (){
-                    Navigator.pushNamed(context, '/guest_dashboard');
-                  },
-                ),
-              ),
-            ],
-            // Rooms Page
-            Container(
-              decoration: const BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(
-                        color: kThemeBlackColor,
-                      )
-                  )
-              ),
-              child: ListTile(
-                title: Wrap(
-                  children: [
-                    Text('All ', style: isDarkModeEnabled == false ? kLightBoldTextSize20 : kWhiteBoldTextSize20),
-                    Text('Rooms', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kBlueBoldTextSize20,),
-                  ],
-                ),
-                onTap: (){
-                  Navigator.pushNamed(context, '/all_room_listings');
-                },
-              ),
-            ),
             // Booking History
             Container(
               decoration: const BoxDecoration(
