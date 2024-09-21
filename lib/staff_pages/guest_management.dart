@@ -112,7 +112,11 @@ class _GuestManagementState extends State<GuestManagement> {
         padding: const EdgeInsets.all(15),
         child:  _isLoading
         ? Center(
-          child: CircularProgressIndicator(color: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor)
+          child: CircularProgressIndicator.adaptive(
+            valueColor: AlwaysStoppedAnimation<Color>(isDarkModeEnabled == false ? kDarkTitleColor : kLightTitleColor),
+            backgroundColor: isDarkModeEnabled == false ? kLightTitleColor : kDarkTitleColor,
+            strokeWidth: 5,
+          )
         )
         : Column(
           children: [
@@ -121,7 +125,11 @@ class _GuestManagementState extends State<GuestManagement> {
                 future:bookingsWithRoomsFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return Center(child: CircularProgressIndicator.adaptive(
+                      valueColor: AlwaysStoppedAnimation<Color>(isDarkModeEnabled == false ? kDarkTitleColor : kLightTitleColor),
+                      backgroundColor: isDarkModeEnabled == false ? kLightTitleColor : kDarkTitleColor,
+                      strokeWidth: 5,
+                    ));
                   } else if (snapshot.hasError) {
                     print("snapshot.error:${snapshot.error}");
                     return Center(child: Text('Error: ${snapshot.error}'));

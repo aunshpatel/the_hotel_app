@@ -50,7 +50,11 @@ class _BookingHistoryState extends State<BookingHistory> {
           future: bookingsWithRoomsFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return Center(child: CircularProgressIndicator.adaptive(
+                valueColor: AlwaysStoppedAnimation<Color>(isDarkModeEnabled == false ? kDarkTitleColor : kLightTitleColor),
+                backgroundColor: isDarkModeEnabled == false ? kLightTitleColor : kDarkTitleColor,
+                strokeWidth: 5,
+              ));
             }
             if (!snapshot.hasData || snapshot.data!.isEmpty) {
               return Center(child: Text('No Bookings Available', style: isDarkModeEnabled == false ? kButtonDarkTextSize24 : kButtonBlueTextSize24,));

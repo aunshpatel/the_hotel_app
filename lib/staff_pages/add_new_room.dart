@@ -256,14 +256,18 @@ class _AddNewRoomState extends State<AddNewRoom> {
           child: uploading == true ? Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            child: const Center(
+            child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  CircularProgressIndicator(),
+                  CircularProgressIndicator.adaptive(
+                    valueColor: AlwaysStoppedAnimation<Color>(isDarkModeEnabled == false ? kDarkTitleColor : kLightTitleColor),
+                    backgroundColor: isDarkModeEnabled == false ? kLightTitleColor : kDarkTitleColor,
+                    strokeWidth: 5,
+                  ),
                   SizedBox(height: 10,),
-                  Text('Uploading Photo(s)'),
+                  Text('Uploading Photo(s)', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20,),
                 ],
               )
             ),

@@ -77,10 +77,10 @@ class _MyAppState extends State<MyApp> {
           return somethingWentWrong(context);
         }
         if(snapshot.connectionState == ConnectionState.done) {
-          return showSpinner == true ? const Center(
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(kLightTitleColor),
-              backgroundColor: Colors.transparent,
+          return showSpinner == true ? Center(
+            child: CircularProgressIndicator.adaptive(
+              valueColor: AlwaysStoppedAnimation<Color>(isDarkModeEnabled == false ? kDarkTitleColor : kLightTitleColor),
+              backgroundColor: isDarkModeEnabled == false ? kLightTitleColor : kDarkTitleColor,
               strokeWidth: 5,
             ),
           ) : MaterialApp(
@@ -102,11 +102,14 @@ class _MyAppState extends State<MyApp> {
           width: MediaQuery.of(context).size.height,
           color: Colors.white,
           child: Center(
-            child: CircularProgressIndicator(
-              backgroundColor: kThemeBlueColor,
-              strokeWidth: 4.0,
-              color: Colors.white,
-              valueColor: animationController.drive(ColorTween(begin: Colors.blueAccent, end: kThemeBlueColor)),
+            child: CircularProgressIndicator.adaptive(
+              valueColor: AlwaysStoppedAnimation<Color>(isDarkModeEnabled == false ? kDarkTitleColor : kLightTitleColor),
+              backgroundColor: isDarkModeEnabled == false ? kLightTitleColor : kDarkTitleColor,
+              strokeWidth: 5,
+              // backgroundColor: kThemeBlueColor,
+              // strokeWidth: 4.0,
+              // color: Colors.white,
+              // valueColor: animationController.drive(ColorTween(begin: Colors.blueAccent, end: kThemeBlueColor)),
               //backgroundColor: Colors.white,
             ),
           ),

@@ -117,10 +117,10 @@ class _LoginScreenState extends State<LoginScreen> {
           title: Text('Login Screen', style:TextStyle(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor),),
           backgroundColor: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
         ),
-        body: showSpinner == true ? const Center(
-          child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(kLightTitleColor),
-            backgroundColor: Colors.transparent,
+        body: showSpinner == true ? Center(
+          child: CircularProgressIndicator.adaptive(
+            valueColor: AlwaysStoppedAnimation<Color>(isDarkModeEnabled == false ? kDarkTitleColor : kLightTitleColor),
+            backgroundColor: isDarkModeEnabled == false ? kLightTitleColor : kDarkTitleColor,
             strokeWidth: 5,
           ),
         ) : Padding(

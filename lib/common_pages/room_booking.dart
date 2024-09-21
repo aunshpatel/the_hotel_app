@@ -203,7 +203,11 @@ class _RoomBookingState extends State<RoomBooking> {
             color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor,
           ),
         ),
-        body: isLoading ? Center(child: CircularProgressIndicator())
+        body: isLoading ? Center(child: CircularProgressIndicator.adaptive(
+          valueColor: AlwaysStoppedAnimation<Color>(isDarkModeEnabled == false ? kDarkTitleColor : kLightTitleColor),
+          backgroundColor: isDarkModeEnabled == false ? kLightTitleColor : kDarkTitleColor,
+          strokeWidth: 5,
+        ))
         : SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
           child: Column(

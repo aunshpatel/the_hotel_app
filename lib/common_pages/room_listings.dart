@@ -188,7 +188,11 @@ class _RoomListingsState extends State<RoomListings> {
                 future: roomData,
                 builder: (BuildContext context, AsyncSnapshot<List<QueryDocumentSnapshot<Object?>>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
+                    return Center(child: CircularProgressIndicator.adaptive(
+                      valueColor: AlwaysStoppedAnimation<Color>(isDarkModeEnabled == false ? kDarkTitleColor : kLightTitleColor),
+                      backgroundColor: isDarkModeEnabled == false ? kLightTitleColor : kDarkTitleColor,
+                      strokeWidth: 5,
+                    ));
                   }
 
                   if (snapshot.hasError) {
