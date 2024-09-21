@@ -81,13 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
           }
         },);
 
-        if(usrData[0]['isGuestOrStaff'] == 'staff') {
-          commonAlertBoxWithNavigation(context, 'SUCCESS!', 'You have logged in successfully!', '/staff_dashboard');
-          // Navigator.pushNamed(context, '/staff_dashboard');
-        } else {
-          commonAlertBoxWithNavigation(context, 'SUCCESS!', 'You have logged in successfully!', '/guest_dashboard');
-          // Navigator.pushNamed(context, '/guest_dashboard');
-        }
+        commonAlertBoxWithNavigation(context, 'SUCCESS!', 'You have logged in successfully!', '/all_room_listings');
       }
       else{
         commonAlertBox(context, 'WARNING!','Incorrect email or password. Please enter your email and password again.');
