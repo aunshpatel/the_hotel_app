@@ -210,7 +210,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               isDarkModeEnabled = false;
                             }
                           });
-                          print('isDarkModeEnabled$isDarkModeEnabled');
                           SharedPreferences.getInstance().then((prefs) {
                             prefs.setBool('isDarkModeEnabled', isDarkModeEnabled);
                           },);
