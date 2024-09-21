@@ -12,7 +12,7 @@ Future<bool> isEmailAlreadyRegistered(String email) async {
 }
 
 Future<List<QueryDocumentSnapshot<Object?>>> getRoomData() async {
-  QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('room_data').where('availability', isEqualTo: 'Available').get();
+  QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('room_data').where('roomStatus', isEqualTo: 'Available').get();
 
   return snapshot.docs.toList();
 }

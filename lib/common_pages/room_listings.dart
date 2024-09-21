@@ -14,8 +14,8 @@ class RoomListings extends StatefulWidget {
 class _RoomListingsState extends State<RoomListings> {
   final ScrollController _scrollController = ScrollController();
   Future<List<QueryDocumentSnapshot<Object?>>> roomData = getRoomData();
-  String searchQuery = '', selectedAvailability = 'All', selectedRoomType = 'All', priceSortOrder = 'Ascending';
-  double minRent = 0, maxRent = 1000000;
+  String searchQuery = '', selectedAvailability = 'Available', selectedRoomType = 'Regular', priceSortOrder = 'Ascending';
+  double minRent = 0, maxRent = 10000000;
   bool _showFilters = false;
   TextEditingController minRentController = TextEditingController();
   TextEditingController maxRentController = TextEditingController();
@@ -117,7 +117,7 @@ class _RoomListingsState extends State<RoomListings> {
                           const SizedBox(width: 15),
                           DropdownButton<String>(
                             value: selectedAvailability,
-                            items: <String>['All', 'Available', 'Out of Service', 'Not Available'].map((String value) {
+                            items: <String>['Available', 'Out of Service', 'Not Available'].map((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(value, style: isDarkModeEnabled == false ? kDarkListingDecorationSize17 : kLightListingDecorationSize17),
@@ -138,7 +138,7 @@ class _RoomListingsState extends State<RoomListings> {
                           const SizedBox(width: 15),
                           DropdownButton<String>(
                             value: selectedRoomType,
-                            items: <String>['All', 'Suite', 'Single', 'Double'].map((String value) {
+                            items: <String>['Regular', 'Suite', 'Semi-Deluxe', 'Deluxe'].map((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(value, style: isDarkModeEnabled == false ? kDarkListingDecorationSize17 : kLightListingDecorationSize17),
@@ -217,13 +217,13 @@ class _RoomListingsState extends State<RoomListings> {
                   final filteredItems = items.where((doc) {
                     final roomNumber = doc['roomNumber'].toString();
                     final description = doc['description'].toString();
-                    final availability = doc['availability'].toString();
+                    final availability = doc['roomStatus'].toString();
                     final roomType = doc['roomType'].toString();
                     final rent = doc['rent'];
 
                     final matchesSearchQuery = roomNumber.contains(searchQuery) || description.contains(searchQuery);
-                    final matchesAvailability = selectedAvailability == 'All' || availability == selectedAvailability;
-                    final matchesRoomType = selectedRoomType == 'All' || roomType == selectedRoomType;
+                    final matchesAvailability = selectedAvailability == 'Available' || availability == selectedAvailability;
+                    final matchesRoomType = selectedRoomType == 'Regular' || roomType == selectedRoomType;
                     final matchesRentRange = rent >= minRent && rent <= maxRent;
 
                     return matchesSearchQuery && matchesAvailability && matchesRoomType && matchesRentRange;
@@ -299,7 +299,7 @@ class _RoomListingsState extends State<RoomListings> {
                                   Row(
                                     children: [
                                       const Text('Availability:', style: kDarkUnderlineTextSize18),
-                                      Text(' ${item['availability']}', style: kDarkTextSize18),
+                                      Text(' ${item['roomStatus']}', style: kDarkTextSize18),
                                     ],
                                   ),
                                   const SizedBox(height: 8),
@@ -373,17 +373,21 @@ class _RoomListingsState extends State<RoomListings> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      roomID = item.id;
-                                      print('roomID: $roomID');
-                                      Navigator.pushNamed(context, '/room_booking');
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
-                                    ),
-                                    child: Text('Book This Room',style: isDarkModeEnabled == false ? kDarkSemiBoldTextSize18 : kBlueSemiBoldTextSize18),
-                                  )
+                                 SizedBox(
+                                   height: 70,
+                                   width: 200,
+                                   child: ElevatedButton(
+                                     onPressed: () {
+                                       roomID = item.id;
+                                       print('roomID: $roomID');
+                                       Navigator.pushNamed(context, '/room_booking');
+                                     },
+                                     style: ElevatedButton.styleFrom(
+                                       backgroundColor: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
+                                     ),
+                                     child: Text('Book This Room',style: isDarkModeEnabled == false ? kDarkSemiBoldTextSize18 : kBlueSemiBoldTextSize18),
+                                   ),
+                                 )
                                 ],
                               )
                             ],
