@@ -262,7 +262,6 @@ class _RoomListingsState extends State<RoomListings> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  // Image.network(item['images'][0], height: 140),
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width,
                                     child: CarouselSlider(
@@ -399,7 +398,6 @@ class _RoomListingsState extends State<RoomListings> {
                                    child: ElevatedButton(
                                      onPressed: () {
                                        roomID = item.id;
-                                       print('roomID: $roomID');
                                        Navigator.pushNamed(context, '/room_booking');
                                      },
                                      style: ElevatedButton.styleFrom(

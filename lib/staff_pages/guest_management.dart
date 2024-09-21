@@ -21,7 +21,6 @@ class _GuestManagementState extends State<GuestManagement> {
   void initState() {
     super.initState();
     bookingsWithRoomsFuture = getUserBookingsWithRoom();
-    print("bookingsWithRoomsFuture:$bookingsWithRoomsFuture");
   }
 
   checkInFunction(String documentID, bool isCheckedIn) async {
@@ -131,7 +130,6 @@ class _GuestManagementState extends State<GuestManagement> {
                       strokeWidth: 5,
                     ));
                   } else if (snapshot.hasError) {
-                    print("snapshot.error:${snapshot.error}");
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                     List<Map<String, dynamic>> bookings = snapshot.data!;

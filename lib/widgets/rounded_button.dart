@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:the_hotel_app/widgets/consts.dart';
 
 class RoundedButton extends StatelessWidget {
   RoundedButton({required this.colour, required this.title, required this.txtStyle, required this.onPress});

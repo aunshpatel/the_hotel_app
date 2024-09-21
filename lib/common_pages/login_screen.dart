@@ -61,7 +61,6 @@ class _LoginScreenState extends State<LoginScreen> {
           isGuestOrStaff = usrData[0]['isGuestOrStaff'];
           currentUserJoiningDate = (usrData[0]['joiningDate']).toDate();
           currentUserBirthday = (usrData[0]['birthday']).toDate();
-          print("currentUserJoiningDate at login:$currentUserJoiningDate, currentUserBirthday:$currentUserBirthday");
         });
 
         SharedPreferences.getInstance().then((prefs) {
@@ -199,7 +198,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        // width: 200,
                         decoration: BoxDecoration(
                           color:  isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
                           borderRadius: BorderRadius.circular(30.0),

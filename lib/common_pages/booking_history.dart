@@ -37,9 +37,6 @@ class _BookingHistoryState extends State<BookingHistory> {
             dividerColor: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor,
             indicatorColor: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor,
             tabs: [
-              // Tab(text: 'Past',),
-              // Tab(text: 'Current'),
-              // Tab(text: 'Future'),
               Tab(child: Text('Past', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kBlueBoldTextSize20,),),
               Tab(child: Text('Current', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kBlueBoldTextSize20,),),
               Tab(child: Text('Future', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kBlueBoldTextSize20,),),

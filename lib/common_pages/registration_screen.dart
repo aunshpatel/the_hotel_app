@@ -30,7 +30,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController confirmPasswordController = TextEditingController();
 
   Future<void> _selectBirthday(BuildContext context) async {
-    // Define the initial date, first date, and last date to show in the date picker
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       barrierDismissible: false,
@@ -64,12 +63,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       setState(() {
         birthday = pickedDate;
       });
-      print("birthday:$birthday");
     }
   }
 
   Future<void> _joiningDate(BuildContext context) async {
-    // Define the initial date, first date, and last date to show in the date picker
     final DateTime? _selectedDate = await showDatePicker(
       context: context,
       barrierDismissible: false,
@@ -101,7 +98,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       setState(() {
         joiningDate = _selectedDate;
       });
-      print('joiningDate:$joiningDate');
     }
   }
 
@@ -120,7 +116,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       }
 
       commonAlertBoxWithNavigation(context, 'SUCCESS!', 'Your registtration was successful! You will now be navigated to login screen.', '/login_screen');
-      print('User registered successfully');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         commonAlertBox(context, 'WARNING!', 'This email is already registered. Please login with that email id.');
@@ -224,7 +219,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   //Birthday
                   ElevatedButton(
                     style: ElevatedButton.styleFrom( textStyle: isDarkModeEnabled == false ? kBlackBoldTextSize18 : kBlueBoldTextSize18, alignment:Alignment.centerLeft, elevation: 0),
-                    onPressed: () => _selectBirthday(context),  // Show date picker when button is pressed
+                    onPressed: () => _selectBirthday(context),
                     child: birthday == null ? Text('Select your birthday', style:TextStyle(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor)) : Text(DateFormat('yMMMMd').format(birthday!), style:TextStyle(color: isDarkModeEnabled == false ? kThemeBlackColor : kThemeBlueColor)),
                   ),
 

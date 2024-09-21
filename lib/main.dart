@@ -57,7 +57,6 @@ class _MyAppState extends State<MyApp> {
             currentUserBirthday = (usrData[0]['birthday']).toDate();
             isGuestOrStaff = usrData[0]['isGuestOrStaff'];
           });
-          print("currentUserJoiningDate:$currentUserJoiningDate, currentUserBirthday:$currentUserBirthday");
         }
       } catch(e) {
         setState(() {
@@ -106,11 +105,6 @@ class _MyAppState extends State<MyApp> {
               valueColor: AlwaysStoppedAnimation<Color>(isDarkModeEnabled == false ? kDarkTitleColor : kLightTitleColor),
               backgroundColor: isDarkModeEnabled == false ? kLightTitleColor : kDarkTitleColor,
               strokeWidth: 5,
-              // backgroundColor: kThemeBlueColor,
-              // strokeWidth: 4.0,
-              // color: Colors.white,
-              // valueColor: animationController.drive(ColorTween(begin: Colors.blueAccent, end: kThemeBlueColor)),
-              //backgroundColor: Colors.white,
             ),
           ),
         );

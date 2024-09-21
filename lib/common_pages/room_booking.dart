@@ -81,7 +81,7 @@ class _RoomBookingState extends State<RoomBooking> {
         },
       );
     } else {
-      // Proceed with booking
+
     }
   }
 
@@ -392,7 +392,6 @@ class _RoomBookingState extends State<RoomBooking> {
                             return item.value.toString().contains(searchValue);
                           },
                         ),
-                        //This to clear the search value when you close the menu
                         onMenuStateChange: (isOpen) {
                           if (!isOpen) {
                             countryCodeController.clear();

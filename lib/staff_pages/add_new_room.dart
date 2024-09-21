@@ -466,9 +466,6 @@ class _AddNewRoomState extends State<AddNewRoom> {
                                         isDense: true,
                                         hintText: 'Enter currency details',
                                         hintStyle: isDarkModeEnabled == false ? kDarkListingDecorationSize17 : kLightListingDecorationSize17,
-                                        // border: OutlineInputBorder(
-                                        //   borderRadius: BorderRadius.circular(8),
-                                        // ),
                                       ),
                                     ),
                                   ),
@@ -476,7 +473,6 @@ class _AddNewRoomState extends State<AddNewRoom> {
                                     return item.value.toString().contains(searchValue);
                                   },
                                 ),
-                                //This to clear the search value when you close the menu
                                 onMenuStateChange: (isOpen) {
                                   if (!isOpen) {
                                     currencyDropdownController.clear();

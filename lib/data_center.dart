@@ -52,7 +52,6 @@ Future<List<Map<String, dynamic>>> getUserBookingsWithRoomData() async {
 
 Future<List<Map<String, dynamic>>> getUserBookingsWithRoom() async {
   QuerySnapshot bookingsSnapshot = await FirebaseFirestore.instance.collection('booking_data').where('checkInDate', isLessThanOrEqualTo: DateTime.now()).where('checkOutDate', isGreaterThanOrEqualTo: DateTime.now()).get();
-  print("getUserBookingsWithRoom: $getUserBookingsWithRoom");
   List<Map<String, dynamic>> bookings = bookingsSnapshot.docs.map((doc) {
     return {
       'checkinDate': (doc['checkInDate'] as Timestamp).toDate(),

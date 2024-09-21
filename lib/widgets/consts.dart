@@ -227,7 +227,6 @@ InputDecoration passwordInputDecoration(String labelText, bool passwordVisible, 
 
 InputDecoration textInputDecoration(String labelText) {
   return InputDecoration(
-    // hintText: hintText,
     hintStyle: TextStyle(color: isDarkModeEnabled == false ? kDarkTitleColor : kThemeBlueColor),
     contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
     border: kBorder,
