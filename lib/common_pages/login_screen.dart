@@ -125,103 +125,110 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ) : Padding(
           padding: const EdgeInsets.fromLTRB(24, 40, 24, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              const SizedBox(
-                height: 15.0,
+          child: SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height,
               ),
-              Flexible(
-                child: HeroLogo(height:250,image:'images/the-hotel-app-high-resolution-logo.jpeg', tag:'photo'),
-              ),
-              const SizedBox(
-                height: 15.0,
-              ),
-              TextField(
-                controller: emailController,
-                keyboardType: TextInputType.emailAddress,
-                onChanged:(value){
-                  email = emailController.text;
-                },
-                decoration: textInputDecoration('Enter your email',),
-              ),
-              const SizedBox(
-                height: 15.0,
-              ),
-              TextField(
-                controller: passwordController,
-                obscureText: _passwordVisible == false ? true : false,
-                onChanged:(value){
-                  pwd = passwordController.text;
-                },
-                decoration: passwordInputDecoration(
-                  'Enter your password',
-                  _passwordVisible,
-                      (){
-                    setState(() {
-                      _passwordVisible = !_passwordVisible;
-                    });
-                  }
-                ),
-              ),
-              const SizedBox(
-                height: 15.0,
-              ),
-              RoundedButton(
-                colour: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
-                title:'Login',
-                onPress: _loginFunction,
-                txtStyle: isDarkModeEnabled == false ? kButtonBlackTextSize24 : kButtonBlueTextSize24,
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  MaterialButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/registration_screen');
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  Flexible(
+                    child: HeroLogo(height:250,image:'images/the-hotel-app-high-resolution-logo.jpeg', tag:'photo'),
+                  ),
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  TextField(
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    onChanged:(value){
+                      email = emailController.text;
                     },
-                    child: Text('New User? Register Here',  style:  isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
+                    decoration: textInputDecoration('Enter your email',),
+                  ),
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  TextField(
+                    controller: passwordController,
+                    obscureText: _passwordVisible == false ? true : false,
+                    onChanged:(value){
+                      pwd = passwordController.text;
+                    },
+                    decoration: passwordInputDecoration(
+                        'Enter your password',
+                        _passwordVisible,
+                            (){
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        }
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  RoundedButton(
+                    colour: isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
+                    title:'Login',
+                    onPress: _loginFunction,
+                    txtStyle: isDarkModeEnabled == false ? kButtonBlackTextSize24 : kButtonBlueTextSize24,
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      MaterialButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/registration_screen');
+                        },
+                        child: Text('New User? Register Here',  style:  isDarkModeEnabled == false ? kDarkTextSize18 : kLightTextSize18),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        // width: 200,
+                        decoration: BoxDecoration(
+                          color:  isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(5),
+                          child: MaterialButton(
+                            onPressed: () {
+                              setState(() {
+                                if(isDarkModeEnabled == false) {
+                                  isDarkModeEnabled = true;
+                                } else {
+                                  isDarkModeEnabled = false;
+                                }
+                              });
+                              SharedPreferences.getInstance().then((prefs) {
+                                prefs.setBool('isDarkModeEnabled', isDarkModeEnabled);
+                              },);
+                            },
+                            child: isDarkModeEnabled == false ? Text('Enable Dark Mode',  style: isDarkModeEnabled == false ? kButtonBlackTextSize18 : kButtonBlueTextSize18) : Text('Enable Light Mode',  style:  isDarkModeEnabled == false ? kButtonBlackTextSize18 : kButtonBlueTextSize18),
+                          ),
+                        ),
+                      ),
+                    ],
                   )
                 ],
               ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    // width: 200,
-                    decoration: BoxDecoration(
-                      color:  isDarkModeEnabled == false ? kThemeBlueColor : kThemeBlackColor,
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(5),
-                      child: MaterialButton(
-                        onPressed: () {
-                          setState(() {
-                            if(isDarkModeEnabled == false) {
-                              isDarkModeEnabled = true;
-                            } else {
-                              isDarkModeEnabled = false;
-                            }
-                          });
-                          SharedPreferences.getInstance().then((prefs) {
-                            prefs.setBool('isDarkModeEnabled', isDarkModeEnabled);
-                          },);
-                        },
-                        child: isDarkModeEnabled == false ? Text('Enable Dark Mode',  style: isDarkModeEnabled == false ? kButtonBlackTextSize18 : kButtonBlueTextSize18) : Text('Enable Light Mode',  style:  isDarkModeEnabled == false ? kButtonBlackTextSize18 : kButtonBlueTextSize18),
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
+            )
+          )
         ),
       ),
     );
