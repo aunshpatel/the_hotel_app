@@ -50,6 +50,24 @@ const kWarningTextSize15 = TextStyle(
   fontWeight:FontWeight.w500
 );
 
+const kBoldBlueTextSize16 = TextStyle(
+    color: kThemeBlueColor,
+    fontSize: 16,
+    fontWeight:FontWeight.bold
+);
+
+const kBoldLightTextSize16 = TextStyle(
+    color: kLightTitleColor,
+    fontSize: 16,
+    fontWeight:FontWeight.bold
+);
+
+const kBoldDarkTextSize16= TextStyle(
+    color: kDarkTitleColor,
+    fontSize: 16,
+    fontWeight:FontWeight.bold
+);
+
 const kLightListingDecorationSize17 = TextStyle(
   color: kThemeBlueColor,
   fontSize: 17,
@@ -129,10 +147,16 @@ const kWhiteBoldLightTextSize18 = TextStyle(
   fontWeight:FontWeight.bold
 );
 
-const kBoldLightTextSize18 = TextStyle(
+const kBoldBlueTextSize18 = TextStyle(
   color: kThemeBlueColor,
   fontSize: 18,
   fontWeight:FontWeight.bold
+);
+
+const kBoldLightTextSize18 = TextStyle(
+    color: kLightTitleColor,
+    fontSize: 18,
+    fontWeight:FontWeight.bold
 );
 
 const kBoldDarkTextSize18 = TextStyle(
@@ -238,13 +262,13 @@ Future<void> commonAlertBox(BuildContext context, String title, String message) 
     builder: (BuildContext context) {
       return AlertDialog.adaptive(
         title: Text(title, style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
-        content: Text(message, style: isDarkModeEnabled == false ? kLightSemiBoldTextSize18 : kDarkSemiBoldTextSize18),
+        content: Text(message, style: isDarkModeEnabled == false ? kBoldDarkTextSize16 : kBoldLightTextSize16),
         actions: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                child: Text('OK', style: isDarkModeEnabled == false ? kLightSemiBoldTextSize18 : kDarkSemiBoldTextSize18),
+                child: Text('OK', style: isDarkModeEnabled == false ? kBoldDarkTextSize16 : kBoldLightTextSize16),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -264,13 +288,13 @@ Future<void> commonAlertBoxWithNavigation(BuildContext context, String title, St
     builder: (BuildContext context) {
       return AlertDialog.adaptive(
         title: Text(title, style:  isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
-        content: Text(message, style:  isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldLightTextSize18),
+        content: Text(message, style:  isDarkModeEnabled == false ? kBoldDarkTextSize16 : kBoldLightTextSize16),
         actions: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                child: Text('OK', style:  isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldLightTextSize18),
+                child: Text('OK', style:  isDarkModeEnabled == false ? kBoldDarkTextSize16 : kBoldLightTextSize16),
                 onPressed: () {
                   Navigator.pushNamed(context, navigationTo);
                 },

@@ -152,7 +152,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                  child: Text('Cancel', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
+                  child: Text('Cancel', style: isDarkModeEnabled == false ?  kBoldDarkTextSize16 : kBoldLightTextSize16),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -176,10 +176,10 @@ class _AddNewRoomState extends State<AddNewRoom> {
       builder: (BuildContext context) {
         return AlertDialog.adaptive(
           title: Text('WARNING', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
-          content: const Text('Are you sure you want to delete the image?', style: kLightSemiBoldTextSize18),
+          content: Text('Are you sure you want to delete the image?', style:  isDarkModeEnabled == false ?  kBoldDarkTextSize16 : kBoldLightTextSize16),
           actions: <Widget>[
             TextButton(
-              child: const Text('YES', style: TextStyle(color: kDarkTitleColor),),
+              child: Text('YES', style: isDarkModeEnabled == false ? kBoldDarkTextSize16 : kBoldLightTextSize16),
               onPressed: () {
                 Navigator.of(context).pop();
                 var deletedImage = FirebaseStorage.instance.refFromURL(photoURL!);
@@ -194,7 +194,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
               },
             ),
             TextButton(
-              child: const Text('NO', style: TextStyle(color: kDarkTitleColor),),
+              child: Text('NO', style:  isDarkModeEnabled == false ?  kBoldDarkTextSize16 : kBoldLightTextSize16),
               onPressed: () {
                 Navigator.of(context).pop();
               },

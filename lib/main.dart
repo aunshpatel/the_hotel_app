@@ -127,13 +127,13 @@ somethingWentWrong(BuildContext context) {
     builder: (BuildContext context) {
       return AlertDialog.adaptive(
         title: Text('WARNING!', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
-        content: Text('Something Went Wrong!', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
+        content: Text('Something Went Wrong!', style: isDarkModeEnabled == false ? kBoldDarkTextSize16 : kBoldLightTextSize16),
         actions: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                child: Text('OK', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
+                child: Text('OK', style: isDarkModeEnabled == false ? kBoldDarkTextSize16 : kBoldLightTextSize16),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },

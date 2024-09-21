@@ -68,13 +68,13 @@ class _RoomBookingState extends State<RoomBooking> {
         builder: (BuildContext context) {
           return AlertDialog.adaptive(
             title: Text('Date Conflict', style: isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
-            content: Text('The selected dates overlap with an existing booking. Please choose different dates.', style: isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldLightTextSize18),
+            content: Text('The selected dates overlap with an existing booking. Please choose different dates.', style: isDarkModeEnabled == false ? kBoldDarkTextSize16 : kBoldLightTextSize16),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('OK', style: isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldLightTextSize18),
+                child: Text('OK', style: isDarkModeEnabled == false ? kBoldDarkTextSize16 : kBoldDarkTextSize16),
               ),
             ],
           );
@@ -237,12 +237,12 @@ class _RoomBookingState extends State<RoomBooking> {
               const SizedBox(height: 15),
               Text(
                 'Room ${propertyDataInfo['roomNumber']}',
-                style: isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldLightTextSize18,
+                style: isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldBlueTextSize18,
               ),
               const SizedBox(height: 15),
               Text(
                 '${propertyDataInfo['currencyType'].split(' - ')[0]} ${propertyDataInfo['rent']} per day',
-                style: isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldLightTextSize18,
+                style: isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldBlueTextSize18,
               ),
               const SizedBox(height: 15),
               Column(
@@ -479,11 +479,11 @@ class _RoomBookingState extends State<RoomBooking> {
               const SizedBox(height: 15),
               Text(
                 'Your Total Stay: ',
-                style: isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldLightTextSize18,
+                style: isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldBlueTextSize18,
               ),
               Text(
                 '$numberOfStayDays Days',
-                style: isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldLightTextSize18,
+                style: isDarkModeEnabled == false ? kBoldDarkTextSize18 : kBoldBlueTextSize18,
               ),
               const SizedBox(height: 20),
               Text(
