@@ -290,16 +290,11 @@ Future<void> commonAlertBoxWithNavigation(BuildContext context, String title, St
         title: Text(title, style:  isDarkModeEnabled == false ? kDarkBoldTextSize20 : kLightBoldTextSize20),
         content: Text(message, style:  isDarkModeEnabled == false ? kBoldDarkTextSize16 : kBoldLightTextSize16),
         actions: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                child: Text('OK', style:  isDarkModeEnabled == false ? kBoldDarkTextSize16 : kBoldLightTextSize16),
-                onPressed: () {
-                  Navigator.pushNamed(context, navigationTo);
-                },
-              ),
-            ],
+          TextButton(
+            child: Text('OK', style:  isDarkModeEnabled == false ? kBoldDarkTextSize16 : kBoldLightTextSize16),
+            onPressed: () {
+              Navigator.pushNamed(context, navigationTo);
+            },
           ),
         ],
       );
