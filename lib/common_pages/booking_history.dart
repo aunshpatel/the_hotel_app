@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../data_center.dart';
@@ -95,6 +96,22 @@ class BookingsList extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: CarouselSlider(
+                      options: CarouselOptions(
+                        autoPlay: roomData['images'].length == 1 ? false : true,
+                        enableInfiniteScroll: roomData['images'].length == 1 ? false : true,
+                        enlargeCenterPage: true,
+                      ),
+                      items: roomData['images'].map<Widget>((img) {
+                        return SizedBox(
+                          child: Image.network(img, height:200, fit: BoxFit.contain),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
                   Text('Room ${roomData['roomNumber']}', style: kDarkBoldTextSize20),
                   const SizedBox(height:10),
                   Text('Room Type: ${roomData['roomType']}', style: kBoldDarkTextSize18,),

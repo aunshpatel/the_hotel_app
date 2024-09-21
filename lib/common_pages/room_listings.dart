@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:the_hotel_app/data_center.dart';
@@ -257,8 +258,23 @@ class _RoomListingsState extends State<RoomListings> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  Image.network(item['images'][0], height: 140),
-                                  const SizedBox(height: 8),
+                                  // Image.network(item['images'][0], height: 140),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: CarouselSlider(
+                                      options: CarouselOptions(
+                                        autoPlay: item['images'].length == 1 ? false : true,
+                                        enableInfiniteScroll: item['images'].length == 1 ? false : true,
+                                        enlargeCenterPage: true,
+                                      ),
+                                      items: item['images'].map<Widget>((img) {
+                                        return SizedBox(
+                                          child: Image.network(img, height:400, fit: BoxFit.contain),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 15),
                                   // Room Number
                                   Row(
                                     children: [
