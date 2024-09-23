@@ -180,7 +180,7 @@ class _GuestManagementState extends State<GuestManagement> {
                                             const Text('Check Out Date:', style: kDarkUnderlineTextSize18),
                                             const SizedBox(width: 8),
                                             SizedBox(
-                                              width: 168,
+                                              width: 158,
                                               child: Text(DateFormat('yMMMMd').format(booking['checkoutDate']), softWrap:true, style: kDarkTextSize18),
                                             )
                                           ],
@@ -206,7 +206,7 @@ class _GuestManagementState extends State<GuestManagement> {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            (booking['isCheckedOut'] == false && booking['checkinDate'].isAtSameMomentAs(DateTime.now())) || (booking['isCheckedOut'] == false && booking['checkinDate'].isBefore(DateTime.now())) || (booking['isCheckedOut'] == false && booking['checkinDate'].isAtSameMomentAs(DateTime.now())) ?
+                                            (booking['isCheckedIn'] == false && booking['isCheckedOut'] == false && booking['checkinDate'].isAtSameMomentAs(DateTime.now())) || (booking['isCheckedIn'] == false && booking['isCheckedOut'] == false && booking['checkinDate'].isBefore(DateTime.now())) || (booking['isCheckedIn'] == false && booking['isCheckedOut'] == false && booking['checkinDate'].isAtSameMomentAs(DateTime.now())) ?
                                             MaterialButton(
                                               onPressed: () {
                                                 bool boolCheckedIn = false;
